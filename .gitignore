@@ -1,0 +1,11 @@
+.npm/
+.git/
+node_modules/
+package-lock.json
+yarn.lock
+database.json
+GokuSesion/
+MdmxDirector/
+BackupSession/
+database/
+

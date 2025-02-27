@@ -1,14 +1,12 @@
 let handler = async (m, { conn, userPrefix, command }) => {
 let mifoto = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://qu.ax/QGAVS.jpg');
-let name = conn.getName(who)
-let mxBot =  conn.user.jid.split`@`[0] 
+//let name = conn.getName(who)
+//let mxBot =  conn.user.jid.split`@`[0] 
 let contextos = `
-- _Hola, soy_ ${wm} _este es el menu principal._
+- _Hola, soy_ ${botname} _este es el menu principal._
 
-╭⋆ *Version:* ${vs}
-⪩ *Autor:* ${author}
-⪩ *Moneda:* ${currency}
-╰⋆ *Asistencia:* ${ceotg}
+- *Version:* ${vs}
+- *Autor:* ${author}
 
 ۰───────────────۰
 

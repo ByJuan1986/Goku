@@ -1,0 +1,18 @@
+{
+"name": "Goku",
+"website": "https://github.com/ByJuan1986",
+"description": "WhatsApp bot facil de usar.",
+"repository": "https://github.com/ByJuan1986/Goku",
+"logo": null,
+"success_url": "https://github.com/ByJuan1986/Goku",
+"keywords": [
+"nodejs", "heroku", "bot", "spanish", "english", "indonesian", "arab", "portuguese", "italian", "french", "whatsapp",
+"termux", "superbot", "multi-device", "md", "official", "javascript", "mxbot"],
+"image": "heroku/nodejs",
+"buildpacks": [
+{ "url": "heroku/nodejs" },
+{ "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest" },
+{ "url": "https://github.com/clhuang/heroku-buildpack-webp-binaries.git" },
+{ "url": "https://github.com/bogini/heroku-buildpack-graphicsmagick" }    
+]
+}

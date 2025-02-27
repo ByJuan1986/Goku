@@ -507,7 +507,7 @@ global.ceofb = 'https://www.facebook.com/share/1F55Q9A2ut/?mibextid=qi2Omg'
 global.ceothd = 'https://www.threads.net/@mdmx_mktg'
 
 //Metodos de pago
-gobal.mrpago = '• *Alias:* MDMX.net\n• *CBU:* 0000003100081371412489'
+global.mrpago = '• *Alias:* MDMX.net\n• *CBU:* 0000003100081371412489'
 global.ceoapp = '• *Alias:* mdmb.ofc.dolarapp\n• *CBU:* 0000069704303965000655'
 global.ceobruk = '• *Alias:* mdmx.mktg\n• *CBU:* 1430001713041561100019'
 global.paypal = '• *Enlace:* https://www.paypal.me/mbmdoficial'

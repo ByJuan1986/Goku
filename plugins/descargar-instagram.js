@@ -1,4 +1,29 @@
 import fetch from 'node-fetch';
+let handler = async (m, { conn, args, usedPrefix, command }) => {
+    if (!args[0]) return conn.sendMessage(m.chat, { text: `⪩ _Ingrese el comando mas un enlace de un video de *Instagram* para descargarlo._` }, { quoted: m })
+    await conn.sendMessage(m.chat, { text: '_Descargando video de *Instagram*, espere un momento..._' }, { quoted: m })
+
+try {
+    let res = await fetch(global.API('fgmods', '/api/downloader/igdl', { url: args[0] }, 'apikey'))
+    if (!res.ok) return conn.sendMessage(m.chat, { text: `⪩ _Ocurrio un error al descargar el video, verifique si el enlace es correcto._` }, { quoted: m })
+    let data = await res.json()
+
+    for (let item of data.result.url) {
+        conn.sendMessage(m.chat, { video: { url: item }, caption: `_Aqui tiene su video de *Instagram*._` }, { quoted: m })
+        //conn.sendFile(m.chat, item, 'igdl.jpg', `Descargado.`, m)
+    }
+  
+    } catch (error) {
+        conn.sendMessage(m.chat, { text: `⪩ _Ocurrio un error con el comando: *#${command}*_` }, { quoted: m })
+        //m.reply(`Error`)
+    }
+    
+}
+
+handler.command = ['ig', 'instagram']
+export default handler
+
+/*import fetch from 'node-fetch';
 import axios from 'axios';
 import instagramGetUrl from 'instagram-url-direct';
 import {instagram} from '@xct007/frieren-scraper';
@@ -58,4 +83,4 @@ conn.sendMessage(m.chat, {text: `• _Ocurrio un error con el comando: *#${comma
 console.log(e)
 }}}}}}}
 handler.command = ["ig", "instagram"]
-export default handler
+export default handler*/

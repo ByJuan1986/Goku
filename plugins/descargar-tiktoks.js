@@ -1,4 +1,41 @@
-import axios from "axios"
+import fg from 'api-dylux'
+import fetch from 'node-fetch'
+let handler = async (m, { conn, text, args, usedPrefix, command }) => {
+if (!args[0]) return conn.sendMessage(m.chat, { text: `● _Ingrese el comando mas un enlace de un video o imagenes de *TikTok* para descargarlo._` }, { quoted: m })
+if (!args[0].match(/tiktok/gi)) return conn.sendMessage(m.chat, { text: `● _El enlace que has ingresado no es valido, recuerda copiar el enlace en *TikTok* y pegarlo aqui._` }, { quoted: m })
+ try {
+await conn.sendMessage(m.chat, { text: '_Descargando, espere un momento..._' }, { quoted: m })
+let res = await fetch(global.API('fgmods', '/api/downloader/tiktok', { url: args[0] }, 'apikey'))
+let data = await res.json()
+if (!data.result.images) {
+let tex = `
+• *Titulo:* ${data.result.title}
+• *Usuario:* @${data.result.author.nickname}
+• *Autor:* ${data.result.author.unique_id}
+• *Duracion:* ${data.result.duration}
+• *Likes:* ${data.result.digg_count}
+• *Vistas:* ${data.result.play_count}
+`
+conn.sendMessage(m.chat, { video: { url: data.result.play }, caption: tex }, { quoted: m });
+ } else {
+ let cap = `
+• *Usuario:* @${data.result.author.nickname}
+• *Likes:* ${data.result.digg_count}
+• *Descripcion:* ${data.result.title}
+`
+for (let ttdl of data.result.images) {
+conn.sendMessage(m.chat, { image: { url: ttdl }, caption: cap }, { quoted: m })
+}
+conn.sendMessage(m.chat, { audio: { url: data.result.play } }, { quoted: m })
+}
+} catch (error) {
+conn.sendMessage(m.chat, { text: `● _Ocurrio un error con el comando: *#${command}*` }, { quoted: m })
+}
+}
+handler.command = ['tiktok', 'tt']
+export default handler
+
+/*import axios from "axios"
 import fg from 'api-dylux';
 import cheerio from 'cheerio';
 import {tiktok} from '@xct007/frieren-scraper';
@@ -55,4 +92,4 @@ async function tiktokdlF(url) {
   } else {
     return {status: false};
   }
-}
+}*/

@@ -1,5 +1,5 @@
 let handler = async (m, { conn, participants, groupMetadata, args, usedPrefix, text, command }) => {
-  if (!text) return conn.sendMessage(m.chat, {text: `⪩ _Ingrese el comando y escriba una peticion para llamar a todos los administradores de este grupo._\n\n- _Use este comando solo si hay un problema importante._`, { quoted: m })
+  if (!text) return conn.sendMessage(m.chat, {text: `⪩ _Ingrese el comando y escriba una peticion para llamar a todos los administradores de este grupo._\n\n- _Use este comando solo si hay un problema importante._`}, { quoted: m })
 const pp = await conn.profilePictureUrl(m.chat, 'image').catch(_ => null) || imagens
 const groupAdmins = participants.filter(p => p.admin)
 const listAdmin = groupAdmins.map((v, i) => `• @${v.id.split('@')[0]}`).join('\n')

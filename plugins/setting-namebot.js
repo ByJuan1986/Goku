@@ -3,11 +3,11 @@ let handler = async (m, { conn, isRowner }) => {
   
    
     if (!newName) {
-      return conn.sendMessage(m.chat, { text: `● _Ingrese el comando y escriba un nuevo nombre para cambiar el nombre del bot *( ${wm} )*` }, { quoted: m });
+      return conn.sendMessage(m.chat, { text: `● _Ingrese el comando y escriba un nuevo nombre para cambiar el nombre del bot *( ${botname} )*` }, { quoted: m });
     }
   
    
-    global.wm = newName;  
+    global.botname = newName;  
   
     
     conn.sendMessage(m.chat, { text: `✓ _¡Se ha cambiado el nombre del bot anterior a *${newName}* con exito!_` }, { quoted: m });

@@ -6,7 +6,7 @@ const configuration = new Configuration({organization: global.openai_org_id, api
 const openaiii = new OpenAIApi(configuration);
 const handler = async (m, {conn, text, usedPrefix, command}) => {
 if (usedPrefix == 'a' || usedPrefix == 'A') return;
-if (!text) return conn.sendMessage(m.chat, {text: `⪩ _Ingrese el comando y escriba una peticion para hablar con *ChatGPT*._\n\n• *Por ejemplo:*\n#${command} Hola, como estas?`, { quoted: m })
+if (!text) return conn.sendMessage(m.chat, {text: `⪩ _Ingrese el comando y escriba una peticion para hablar con *ChatGPT*._\n\n• *Por ejemplo:*\n#${command} Hola, como estas?`}, { quoted: m })
 if (command == 'gpt' || command == 'chatgpt') {
 try {
 await conn.sendPresenceUpdate('composing', m.chat)
@@ -26,12 +26,12 @@ let query = m.text;
 let username = `${m.pushName}`;
 let syms1 = `Seras ChatGPT, responderas a todas las preguntas que te hagan, actua de manera seria, justa y sincero, cualquier duda que te hagan, respondelos sinceramente conforme a tu conocimiento, eres ChatGPT en colaboracion con MBMD.`;
 let result = await luminsesi(query, username, syms1);
-await conn.sendMessage(m.chat, {text: result, { quoted: m })
+await conn.sendMessage(m.chat, {text: result}, { quoted: m })
 } catch {
 try {
 let gpt = await fetch(`${apis}/ia/gptweb?text=${text}`) 
 let res = await gpt.json()
-await conn.sendMessage(m.chat, {text: res.gpt, { quoted: m })
+await conn.sendMessage(m.chat, {text: res.gpt}, { quoted: m })
 /*await conn.sendMessage(m.chat, { text: res.gpt }, footer: 'Selecciona una opción.',
 buttons: [ {
 buttonId: `#chagpt Me das mas información por favor`,

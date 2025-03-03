@@ -4,14 +4,14 @@ const handler = async (m, {conn, usedPrefix, command}) => {
  try {    
 let q = m.quoted ? m.quoted : m;
 let mime = (q.msg || q).mimetype || q.mediaType || "";
-if (!mime) return conn.sendMessage(m.chat, {text: `⪩ _Ingrese el comando y responda a una imagen para aumentar la calidad._`, { quoted: m });
-if (!/image\/(jpe?g|png)/.test(mime)) return conn.sendMessage(m.chat, {text: `⪩ _Solo debe de responder una imagen, los videos no son compatibles por el momento..._`, { quoted: m });
-await conn.sendMessage(m.chat, {text: `_Aumentando calidad, espere un momento..._`, { quoted: m });
+if (!mime) return conn.sendMessage(m.chat, {text: `⪩ _Ingrese el comando y responda a una imagen para aumentar la calidad._`}, { quoted: m });
+if (!/image\/(jpe?g|png)/.test(mime)) return conn.sendMessage(m.chat, {text: `⪩ _Solo debe de responder una imagen, los videos no son compatibles por el momento..._`}, { quoted: m });
+await conn.sendMessage(m.chat, {text: `_Aumentando calidad, espere un momento..._`}, { quoted: m });
 let img = await q.download?.();
 let pr = await remini(img, "enhance");
 conn.sendMessage(m.chat, {image: pr}, {quoted: m});
  } catch {
-return conn.sendMessage(m.chat, {text: `⪩ _Ocurrio un error con el comando: *#${command}*_`, { quoted: m });
+return conn.sendMessage(m.chat, {text: `⪩ _Ocurrio un error con el comando: *#${command}*_`}, { quoted: m });
  }};
 handler.command = ["hd", "calidad"];
 export default handler;

@@ -11,7 +11,7 @@ const idioma = 'es'
 const sistema1 = `Seras ChatGPT, responderas a todas las preguntas que te hagan, actua de manera seria, justa y sincero, cualquier duda que te hagan, respondelos sinceramente conforme a tu conocimiento, eres ChatGPT en colaboracion con MBMD.`;
 const handler = async (m, {conn, text, usedPrefix, command}) => {
 if (usedPrefix == 'a' || usedPrefix == 'A') return;
-if (!text) return conn.sendMessage(m.chat, {text: `⪩ _Ingrese el comando y escriba una peticion para hablar con *ChatGPT*._\n\n• *Por ejemplo:*\n#${command} Hola, como estas?`, { quoted: m })
+if (!text) return conn.sendMessage(m.chat, {text: `⪩ _Ingrese el comando y escriba una peticion para hablar con *ChatGPT*._\n\n• *Por ejemplo:*\n#${command} Hola, como estas?`}, { quoted: m })
 try {
 conn.sendPresenceUpdate('recording', m.chat);
 async function getOpenAIChatCompletion(texto) {

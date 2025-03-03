@@ -1,7 +1,7 @@
 import axios from 'axios'
 const {proto, generateWAMessageFromContent, prepareWAMessageMedia, generateWAMessageContent, getDevice} = (await import("@whiskeysockets/baileys")).default
 let handler = async (message, { conn, text, usedPrefix, command }) => {
-if (!text) return conn.sendMessage(message.chat, { text: `● _Ingrese el comando y escriba lo que quiera buscar en *TikTok*._\n\n• *Por ejemplo:*\n#${command} Trends de baile popular.` }, { quoted: m })
+if (!text) return conn.sendMessage(message.chat, { text: `● _Ingrese el comando y escriba lo que quiera buscar en *TikTok*._\n\n• *Por ejemplo:*\n#${command} Trends de baile popular.` }, { quoted: message })
 async function createVideoMessage(url) {
 const { videoMessage } = await generateWAMessageContent({ video: { url } }, { upload: conn.waUploadToServer })
 return videoMessage

@@ -217,7 +217,8 @@ ${readMore}
 ⊐ _${usedPrefix}base_mx_
 `.trim();
 if (m.isWABusiness) {
-await conn.sendMessage(m.chat, { image: { url: mxMenu1 }, caption: contextos }, { quoted: m })
+await conn.sendMessage(m.chat, { text: contextos, contextInfo: { externalAdReply: { title: botname, body: textoInfo, thumbnailUrl: mxMenu1, mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}} , { quoted: m })
+  //await conn.sendMessage(m.chat, { image: { url: mxMenu1 }, caption: contextos }, { quoted: m })
 } else {
 await conn.sendMessage(m.chat, { image: { url: mxMenu1 }, caption: contextos, footer: textoInfo,
 buttons: [{ 

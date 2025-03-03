@@ -6,9 +6,9 @@ import {facebook} from '@xct007/frieren-scraper';
 import axios from 'axios';
 const handler = async (m, {conn, args, command, usedPrefix}) => {
 let user = global.db.data.users[m.sender]
-if (!args[0]) return conn.sendMessage(m.chat, {text: `⪩ _Ingrese el comando mas un enlace valido de un video de *Facebook* para descargarlo._`, { quoted: m })
-if (!args[0].match(/www.facebook.com|fb.watch/g)) return conn.sendMessage(m.chat, {text: `⪩ _El enlace ingresado no es valido, recuerda copiar el enlace de un video de *Facebook.*_\n\n• *Por ejemplo:*\n#${command} https://www.facebook.com/share/r/14VoYNAhyh/?mibextid=xfxF2i`, { quoted: m })
-await conn.sendMessage(m.chat, {text: `_Descargando, espere un momento..._`, { quoted: m })
+if (!args[0]) return conn.sendMessage(m.chat, {text: `⪩ _Ingrese el comando mas un enlace valido de un video de *Facebook* para descargarlo._`}, { quoted: m })
+if (!args[0].match(/www.facebook.com|fb.watch/g)) return conn.sendMessage(m.chat, {text: `⪩ _El enlace ingresado no es valido, recuerda copiar el enlace de un video de *Facebook.*_\n\n• *Por ejemplo:*\n#${command} https://www.facebook.com/share/r/14VoYNAhyh/?mibextid=xfxF2i`}, { quoted: m })
+await conn.sendMessage(m.chat, {text: `_Descargando, espere un momento..._`}, { quoted: m })
 try {
 const apiUrl = `https://api.dorratz.com/fbvideo?url=${encodeURIComponent(args[0])}`;
 const response = await fetch(apiUrl);
@@ -18,7 +18,8 @@ const hdUrl = data.result.hd;
 const sdUrl = data.result.sd;
 const audioUrl = data.result.audio;        
 const downloadUrl = hdUrl || sdUrl; 
-await conn.sendFile(m.chat, downloadUrl, `error.mp4`, 'Aqui tiene su video.', m)
+await conn.sendMessage(m.chat, { video: { url: downloadUrl }, caption: '_Aqui tiene su video de *Facebook*_'}, { quoted: m })
+  //conn.sendFile(m.chat, downloadUrl, `error.mp4`, 'Aqui tiene su video.', m)
 }} catch (err1) {
 try {
 const apiUrl = `${apis}/download/facebook?url=${encodeURIComponent(args[0])}`;
@@ -27,35 +28,40 @@ const delius = await apiResponse.json();
 if (!delius || !delius.urls || delius.urls.length === 0) return m.react("❌")
 const downloadUrl = delius.urls[0].hd || delius.urls[0].sd;
 if (!downloadUrl) return m.react("❌");
-await conn.sendFile(m.chat, downloadUrl, `error.mp4`, 'Aqui tiene su video.', m)
+await conn.sendMessage(m.chat, { video: { url: downloadUrl }, caption: '_Aqui tiene su video de *Facebook*_'}, { quoted: m })
+  //conn.sendFile(m.chat, downloadUrl, `error.mp4`, 'Aqui tiene su video.', m)
 } catch (err2) {
 try {
 const d2ata = await facebook.v1(args[0]);
 let r2es = '';
 if (d2ata.urls && d2ata.urls.length > 0) {
 r2es = `${d2ata.urls[0]?.hd || d2ata.urls[1]?.sd || ''}` }
-conn.sendFile(m.chat, r2es, `error.mp4`, 'Aqui tiene su video.', m)
+conn.sendMessage(m.chat, { video: { url: r2es }, caption: '_Aqui tiene su video de *Facebook*_'}, { quoted: m })
+  //conn.sendFile(m.chat, r2es, `error.mp4`, 'Aqui tiene su video.', m)
 } catch (err3) {
 try {
 const req = await igeh(args[0]);
-conn.sendMessage(m.chat, {video: {url: req.url_list}}, m);
+conn.sendMessage(m.chat, {video: {url: req.url_list}, caption: '_Aqui tiene su video de *Facebook*_'}, { quoted: m });
 } catch (err5) {
 try {
 const ress = await fg.fbdl(args[0]);
 const urll = await ress.data[0].url;
-await conn.sendFile(m.chat, urll, `error.mp4`, 'Aqui tiene su video.', m)
+await conn.sendMessage(m.chat, { video: { url: urll }, caption: '_Aqui tiene su video de *Facebook*_'}, { quoted: m })
+  //conn.sendFile(m.chat, urll, `error.mp4`, 'Aqui tiene su video.', m)
 } catch (err6) {
 try {
 const res = await fbDownloader(args[0]);
 for (const result of res.download) {
 const ur = result.url;
-await conn.sendFile(m.chat, ur, `error.mp4`, 'Aqui tiene su video.', m)  
+await conn.sendMessage(m.chat, { video: { url: ur }, caption: '_Aqui tiene su video de *Facebook*_'}, { quoted: m })
+  //conn.sendFile(m.chat, ur, `error.mp4`, 'Aqui tiene su video.', m)  
 }} catch (err7) {
 try {
 const {result} = await facebookdl(args[0]).catch(async (_) => await facebookdlv2(args[0])).catch(async (_) => await savefrom(args[0]));
-for (const {url, isVideo} of result.reverse()) await conn.sendFile(m.chat, url, `error.mp4`, contenido, m) 
+for (const {url, isVideo} of result.reverse()) await conn.sendMessage(m.chat, { video: { url: url }, caption: '_Aqui tiene su video de *Facebook*_'}, { quoted: m })
+  //conn.sendFile(m.chat, url, `error.mp4`, contenido, m) 
 } catch (e) {
-conn.sendMessage(m.chat, {text: `• _Ocurrio un error con el comando: *#${command}*_`, m)
+conn.sendMessage(m.chat, {text: `• _Ocurrio un error con el comando: *#${command}*_`}, { quoted: m })
 console.log(e) 
 }}}}}}}}
 handler.command = ["facebook", "fb"]

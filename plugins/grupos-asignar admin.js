@@ -7,8 +7,8 @@ var number = text.split`@`[1]
 var number = text
 }
 
-if(!text && !m.quoted) return conn.sendMessage(m.chat, {text: `⪩ _Ingrese el comando y mensione a una persona para asignarlo como admin del grupo._`, { quoted: m })
-if(number.length > 13 || (number.length < 11 && number.length > 0)) return conn.sendMessage(m.chat, {text: `✎ _Debe de ingresar el comando y mensionar a una persona para asignarlo como admin en el grupo._`, { quoted: m })
+if(!text && !m.quoted) return conn.sendMessage(m.chat, {text: `⪩ _Ingrese el comando y mensione a una persona para asignarlo como admin del grupo._`}, { quoted: m })
+if(number.length > 13 || (number.length < 11 && number.length > 0)) return conn.sendMessage(m.chat, {text: `✎ _Debe de ingresar el comando y mensionar a una persona para asignarlo como admin en el grupo._`}, { quoted: m })
 	
 try {
 if(text) {
@@ -20,7 +20,7 @@ var user = number + '@s.whatsapp.net'
 } } catch (e) {
 } finally {
 conn.groupParticipantsUpdate(m.chat, [user], 'promote')
-conn.sendMessage(m.chat, {text: `✓ _El participante mensionado ahora es admin del grupo._`, { quoted: m })
+conn.sendMessage(m.chat, {text: `✓ _El participante mensionado ahora es admin del grupo._`}, { quoted: m })
 }}
 handler.command = /^(promote|adm)$/i
 handler.group = true

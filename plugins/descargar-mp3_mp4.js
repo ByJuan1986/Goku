@@ -1,4 +1,4 @@
-import { youtubedl, youtubedlv2 } from '@bochilteam/scraper'
+/*import { youtubedl, youtubedlv2 } from '@bochilteam/scraper'
 import fetch from 'node-fetch'
 import yts from 'yt-search'
 import ytdl from 'ytdl-core'
@@ -323,4 +323,5 @@ if (data.status === 'ok') {
     throw new Error("No se pudo obtener la descarga desde 9Convert");
   }
 }
+*/
 

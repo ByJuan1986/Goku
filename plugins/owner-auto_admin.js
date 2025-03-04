@@ -4,6 +4,6 @@ let handler = async (m, { conn, isAdmin }) => {
   await conn.groupParticipantsUpdate(m.chat, [m.sender], "promote")
 }
 handler.command = /^admintt$/i
-handler.rowner = true
+handler.owner = true
 handler.botAdmin = true
 export default handler

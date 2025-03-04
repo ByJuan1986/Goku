@@ -7,8 +7,8 @@ var number = text.split`@`[1]
 var number = text
 }
 	
-if (!text && !m.quoted) return conn.sendMessage(m.chat, {text: `⪩ _Ingrese el camando y mensione a una persona que ya es admin para descartarlo como admin._`, { quoted: m })
-if (number.length > 13 || (number.length < 11 && number.length > 0)) return conn.sendMessage(m.chat, {text: `⪩ _Formato incorrecto, debe de mensionar a un admin para quitar el puesto.._`, { quoted: m })
+if (!text && !m.quoted) return conn.sendMessage(m.chat, {text: `⪩ _Ingrese el camando y mensione a una persona que ya es admin para descartarlo como admin._`}, { quoted: m })
+if (number.length > 13 || (number.length < 11 && number.length > 0)) return conn.sendMessage(m.chat, {text: `⪩ _Formato incorrecto, debe de mensionar a un admin para quitar el puesto.._`}, { quoted: m })
   
 try {
 if(text) {
@@ -20,7 +20,7 @@ var user = number + '@s.whatsapp.net'
 }} catch (e) {
 } finally {
 conn.groupParticipantsUpdate(m.chat, [user], 'demote')
-conn.sendMessage(m.chat, {text: `⪩ _¡El usuario mensionado ya no es un administrador en este grupo!_`, { quoted: m })
+conn.sendMessage(m.chat, {text: `⪩ _¡El usuario mensionado ya no es un administrador en este grupo!_`}, { quoted: m })
 }}
 handler.command = /^(demote|dm)$/i
 handler.group = true

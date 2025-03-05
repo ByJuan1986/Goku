@@ -9,5 +9,5 @@ let out = await webp2png(media).catch(_ => null) || Buffer.alloc(0)
 await conn.sendMessage(m.chat, { image: { url: out }, caption: `_Aqui tiene su imagen._` }, { quoted: m })
 //await conn.sendFile(m.chat, out, 'error.png', 'Aqui tiene su imagen.', { quoted: m })
 }
-handler.command = ['timg', 'tsmg']
+handler.command = ['timg', 'tsmg', 'jpg']
 export default handler

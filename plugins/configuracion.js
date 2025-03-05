@@ -27,7 +27,7 @@ throw false
 chat.welcome = isEnable
 break
     
-case 'detect': case 'avisos':
+case 'detector': case 'acciones':
 if (!m.isGroup) {
 if (!isOwner) {
 global.dfail('group', m, conn)
@@ -40,7 +40,7 @@ throw false
 chat.detect = isEnable
 break
 		
-case 'antidelete': case 'antieliminar': case 'delete':
+case 'eliminar': case 'delete':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
@@ -58,112 +58,112 @@ throw false
 global.opts['self'] = !isEnable
 break
     
-case 'antilink': case 'antienlace':
+case 'whatsapp': case 'wa':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.antiLink = isEnable
+chat.noenlace = isEnable
 break
     
-case 'antilink2': case 'antienlace2':
+case 'whatsapp2': case 'wa2':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.antiLink2 = isEnable 
+chat.noenlace2 = isEnable 
 break
 		
-case 'antitiktok': case 'antitk': case 'antitik':
+case 'tiktok':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.antiTiktok = isEnable 
+chat.notiktok = isEnable 
 break
 		
-case 'antiyoutube': case 'antiyt':
+case 'youtube':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.antiYoutube = isEnable 
+chat.noyoutube = isEnable 
 break
 		
-case 'antitelegram': case 'antitl': case 'antitele': case 'antitg': case 'antitel':
+case 'telegram':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.antiTelegram = isEnable 
+chat.notelegram = isEnable 
 break
 		
-case 'antifacebook': case 'antifb': case 'antifbook':
+case 'facebook':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.antiFacebook = isEnable 
+chat.nofacebook = isEnable 
 break
 		
-case 'antiinstagram': case 'antinstagram': case 'antiig': case 'antig': case 'antiinsta': case 'antinsta':
+case 'instagram':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.antiInstagram = isEnable 
+chat.noinstagram = isEnable 
 break
 		
-case 'antitwitter': case 'antitw': case 'antitwit': case 'antitwter': case 'antitwiter': case 'antix':
+case 'twitter':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.antiTwitter = isEnable 
+chat.notwitter = isEnable 
 break
 
-case 'antidiscord':
+case 'discord':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.antiDiscord = isEnable 
+chat.nodiscord = isEnable 
 break
 
-case 'antithreads':
+case 'threads':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.antiThreads = isEnable 
+chat.nothreads = isEnable 
 break
 
-case 'antitwitch':
+case 'twitch':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.antiTwitch = isEnable 
+chat.notwitch = isEnable 
 break
     
-case 'modohorny': case 'modocaliente': case 'modehorny':
+case 'eventos':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.modohorny = isEnable          
+chat.eventoBot = isEnable          
 break
     
 case 'stickers':
@@ -175,22 +175,22 @@ throw false
 chat.stickers = isEnable          
 break
     
-case 'game': case 'juegos': case 'fun':
+case 'juegos':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.game = isEnable          
+chat.juegosmx = isEnable          
 break
     
-case 'ruleta': case 'game2':
+case 'nopasar':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.game2 = isEnable          
+chat.nopasar = isEnable          
 break
     
 case 'temporal':
@@ -202,25 +202,25 @@ throw false
 bot.temporal = isEnable
 break
 		
-case 'autolevelup': case 'autonivel': case 'nivelautomatico':
+case 'autonivel':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.autolevelup = isEnable          
+chat.autoNivel = isEnable          
 break
     
-case 'autosticker':
+case 'autostick':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.autosticker = isEnable          
+chat.autoSticks = isEnable          
 break
     
-case 'reaction': case 'reaccion': case 'emojis': case 'antiemojis': case 'reacciones': case 'reaciones':
+case 'emojis': case 'reactions':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
@@ -229,13 +229,13 @@ throw false
 chat.reaction = isEnable          
 break
 		
-case 'antitoxic': case 'antitoxicos': case 'antimalos':
+case 'malapalabra': case 'palabras':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.antitoxic = isEnable
+chat.nopalabras = isEnable
 break
     
 case 'audios':
@@ -247,7 +247,7 @@ throw false
 chat.audios = isEnable          
 break
     
-case 'antiver': case 'modover': case 'modoobservar': case 'modobservar': case 'antiviewonce':
+case 'ver': case 'fileview':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
@@ -256,7 +256,7 @@ throw false
 chat.antiver = isEnable 
 break
 		
-case 'antiinternacional': case 'antinternacional': case 'antinternational': case 'antifake': case 'antifalsos': case 'antivirtuales': case 'antiextranjeros':		
+case 'pais':		
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
@@ -265,13 +265,13 @@ throw false
 chat.antifake = isEnable          
 break
 		
-case 'jadibot': case 'modojadibot': case 'serbot': case 'modoserbot': 
+case 'prebots': 
 isAll = true
 if (!isROwner) {
 global.dfail('rowner', m, conn)
 throw false
 }
-bot.jadibotmd = isEnable
+bot.prebotsmx = isEnable
 break 
     
 case 'restrict': case 'restringir':
@@ -283,13 +283,13 @@ throw false
 bot.restrict = isEnable
 break
 
-case 'antiporn': case 'antiporno':
+case 'xxx':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
 throw false
 }}
-chat.antiPorn = isEnable          
+chat.noxxx = isEnable          
 break
     
 case 'nyimak':
@@ -311,7 +311,7 @@ bot.autoread2 = isEnable
 global.opts['autoread'] = isEnable  
 break
     
-case 'anticall': case 'antillamar':
+case 'llamadas':
 isAll = true
 if (!isROwner) {
 global.dfail('rowner', m, conn)
@@ -320,7 +320,7 @@ throw false
 bot.antiCall = isEnable
 break
 		
-case 'antispam':
+case 'spam':
 isAll = true
 if (!isOwner) {
 global.dfail('owner', m, conn)
@@ -329,7 +329,7 @@ throw false
 bot.antiSpam = isEnable
 break
 
-case 'antispam2':
+case 'spam2':
 isAll = true
 if (!isOwner) {
 global.dfail('owner', m, conn)
@@ -338,7 +338,7 @@ throw false
 bot.antiSpam2 = isEnable
 break
 
-case 'modoadmin': case 'soloadmin': case 'modeadmin':
+case 'admins':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
@@ -356,33 +356,32 @@ throw false
 chat.autorespond = isEnable 
 break
    
-case 'pconly': case 'privateonly': case 'soloprivados':
+case 'bprivado':
 isAll = true
 if (!isROwner) {
 global.dfail('rowner', m, conn)
 throw false
 }
-global.opts['pconly'] = isEnable
+global.opts['botprivado'] = isEnable
 break
     
-case 'gconly': case 'grouponly': case 'sologrupos':
+case 'bgrupal':
 isAll = true
 if (!isROwner) {
 global.dfail('rowner', m, conn)
 throw false
 }
-global.opts['gconly'] = isEnable
+global.opts['botgrupal'] = isEnable
 break
-case 'antiprivado': case 'antiprivate':
-case 'privado':
+case 'privado': case 'no_privados':
 isAll = true
 if (!isROwner) {
 global.dfail('rowner', m, conn)
 throw false
 }
-bot.antiPrivate = isEnable
+bot.noprivados = isEnable
 break
-case 'anticommand': case 'antiarabe': case 'antiarabe2': case 'AntiCommand':
+case 'arabes':
 isAll = true
 if (!isROwner) {
 global.dfail('rowner', m, conn)
@@ -390,7 +389,7 @@ throw false
 }
 bot.anticommand = isEnable
 break
-case 'antitrabas': case 'antitraba': case 'antilag':
+case 'trabas':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
@@ -398,7 +397,7 @@ throw false
 }}
 chat.antiTraba = isEnable
 break
-case 'simi': case 'chatbot':
+case 'simi':
 if (m.isGroup) {
 if (!(isAdmin || isOwner)) {
 global.dfail('admin', m, conn)
@@ -406,7 +405,7 @@ throw false
 }}
 chat.simi = isEnable
 break
-case 'modoia': case 'chatgpt': case 'ia':
+case 'chatgpt':
 isAll = true;
 if (!isOwner) {
 global.dfail('owner', m, conn);
@@ -424,13 +423,20 @@ throw false
 global.opts['swonly'] = isEnable
 break
 default:
-if (!/[01]/.test(command)) return await conn.reply(m.chat, `• _Favor de iniciar con un codigo de activacion._`, m, { mentions: [aa,] })//`
+if (!/[01]/.test(command)) return null
+//await conn.reply(m.chat, `• _Favor de iniciar con un codigo de activacion._`, m, { mentions: [aa,] })//`
 throw false
 }
-await conn.reply(m.chat, `
-*Comando:* ${type} 
-*Funcion:* ${isEnable ? 'Activo.' : 'Desactivado.'} 
-*Para:* ${isAll ? 'Este chat.' : isUser ? '' : 'Para el bot.'}`, m)
+
+conn.sendMessage(m.chat, { text: `✓ _¡Se ha ${isEnable ? `activado` : `desactivado`} el comando *${type}* con exito._\n- _Para desactivar o activar, puedes usar estos comandos._\n\n• *Por ejemplo:*\n*#on ${type}*\n*#off ${type}*` }, { quoted: m })
+/*if (m.isWABusiness) {
+await conn.sendMessage(m.chat, { text: `✓ _¡Se ha ${isEnable ? `desactivado` : `activado`} el comando *${type}* con exito._\n- _Para desactivar o activar, puedes usar estos comandos._\n\n• *Por ejemplo:*\n*#on ${type}*\n*#off ${type}*` }, { quoted: m })
+} else {
+await conn.sendMessage(m.chat, { text: `✓ _¡Se ha ${isEnable ? `desactivado` : `activado`} el comando *${type}* con exito._\n- _Puedes presionar el boton para realizar otra accion negativa o positiva._`, footer: textoInfo,
+buttons: [
+{ buttonId: `${isEnable ? `.off ${type}` : `.on ${type}`}`, buttonText: { displayText: `${isEnable ? `DESACTIVAR` : `ACTIVAR`}`, }, type: 1, },
+], viewOnce: true, headerType: 4, }, { quoted: m })
+}*/
 }
 handler.command = /^((en|dis)able|(tru|fals)e|(turn)?o(n|ff)|[01])$/i
 export default handler

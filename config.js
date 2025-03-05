@@ -534,4 +534,23 @@ global.grupo14 = "https://chat.whatsapp.com/EJFl28xgwLeEhIQxriWiuZ" // 🌍🎮�
 global.grupo15 = "https://chat.whatsapp.com/JbIgLHQuvue7hItxhng9nN" // 🌍🎮🐉 𝔻𝕣𝕒𝕘𝕠𝕟 𝕓𝕒𝕝𝕝 𝕜𝕒𝕜𝕒𝕣𝕠𝕥 🐉🎮🌍
 global.grupo16 = "https://chat.whatsapp.com/KljiSB549Xc7HXXIzVPFat" // 🌍🎮🐉 𝔻𝕣𝕒𝕘𝕠𝕟 𝔹𝕒𝕝𝕝 𝔹𝕦𝕕𝕠𝕜𝕒𝕚 𝕋𝕖𝕟𝕜𝕒𝕚𝕔𝕙𝕚 🐉 🎮🌍
 global.grupo17 = "https://chat.whatsapp.com/LUKhODoKfqrC0uVKqMdfu4" // 🐉🎮𝔻ℝ𝔸𝔾𝕆ℕ 𝔹𝔸𝕃𝕃 𝔽𝕀𝔾𝕋ℍ𝔼ℝℤ🎮🐉
+
+//grupos frikis
+global.grupo_friki1 = "https://chat.whatsapp.com/ChQubdKdYav2XpohU8Vs3R" // 亀🇪🇸 𝔽𝕒𝕟𝕤 𝔻𝕣𝕒𝕘𝕠𝕟 𝔹𝕒𝕝𝕝 🇪🇸亀
+global.grupo_friki2 = "https://chat.whatsapp.com/Bjf43ZD8ZlZBCWE0Yv3jIX" // 🌍⚔️🛡️ 𝑭𝒂𝒏𝒔 𝒅𝒆 𝒂𝒕𝒂𝒒𝒖𝒆 𝒂 𝒍𝒐𝒔 𝒕𝒊𝒕𝒂𝒏𝒆𝒔 ⚔️🛡️🌍 
+global.grupo_friki3 = "https://chat.whatsapp.com/EGR7UJ4mvjMD0hc0ZoAxwI" // 🌍🤖 𝑫𝒆𝒔𝒄𝒂𝒓𝒈𝒂 𝒃𝒐𝒕𝒔 - 𝑹𝒆𝒅𝒆𝒔 𝒔𝒐𝒄𝒊𝒂𝒍𝒆𝒔 🤖🌍
+global.grupo_friki4 = "https://chat.whatsapp.com/CjPAAmdWQzO07yzPoypr6O" // 🌍💪🦲 𝑶𝒏𝒆 𝒑𝒖𝒏𝒄𝒉 𝒎𝒂𝒏 🦲💪🌍 
+global.grupo_friki5 = "https://chat.whatsapp.com/LE7qPMXoSMH5Rh40R8aPlE" // 𝗗𝗿𝗮𝗴𝗼𝗶 𝗯𝗼𝗹𝗮
+global.grupo_friki6 = "https://chat.whatsapp.com/J0vzttZbKXqKeUZPj0fUYa" // 🌍🎭🐻 𝑩𝒍𝒆𝒂𝒄𝒉 🐻🎭🌍
+global.grupo_friki7 = "https://chat.whatsapp.com/IIH75WjAuzhBSrd05wFsgV" // 🌍⚔️🗡️ 𝑲𝒊𝒍𝒍 𝒍𝒂 𝒌𝒊𝒍𝒍 🗡️⚔️🌍
+global.grupo_friki8 = "https://chat.whatsapp.com/By1GlKQ5yLQAYYxhTR8t9N" // 🌍🃏♣️ 𝑭𝒂𝒏𝒔 𝒅𝒆 𝑲𝒂𝒌𝒆𝒈𝒖𝒓𝒖𝒊 ♣️🃏🌍
+global.grupo_friki9 = "https://chat.whatsapp.com/CRYP316MujxKFYiIHe9ZEx" // 🌍😺🐼 𝑭𝒂𝒏𝒔 𝒅𝒆 𝑹𝒂𝒏𝒎𝒂 ½ 🐼😺🌍
+global.grupo_friki10 = "https://chat.whatsapp.com/KkanOPfYmn2DE0oErnxdKf" // 🌍 👒⛩️ 𝑭𝒂𝒏𝒔 𝒅𝒆 𝑶𝒏𝒆 𝒑𝒊𝒆𝒄𝒆 ⛩️👒🌍
+global.grupo_friki11 = "https://chat.whatsapp.com/CIsIuOpJoEX72KsLMHpMHz" // 🌍🍥🍜 𝑭𝒂𝒏𝒔 𝒅𝒆 𝑵𝒂𝒓𝒖𝒕𝒐 🍜🍥🌍
+global.grupo_friki12 = "https://chat.whatsapp.com/Jl57mUSc0Nr0DxdqcB74hI" // 𝗯𝗼𝗹𝗮 𝗱𝗲 𝗱𝗿𝗮𝗰 𝗲𝗻 𝗰𝗮𝘁𝗮𝗹𝗮
+global.grupo_friki13 = "https://chat.whatsapp.com/LZbQBENMeIjEv7HE1DM32v" // 🌍🤖 𝑫𝒆𝒔𝒄𝒂𝒓𝒈𝒂 𝒃𝒐𝒕𝒔 - 𝑹𝒆𝒅𝒆𝒔 𝒔𝒐𝒄𝒊𝒂𝒍𝒆𝒔 2 🤖🌍
+global.grupo_friki14 = "https://chat.whatsapp.com/HHqnpkNB3pRCpekFTzQTne" // 💥💣ARCANE💣💥
+global.grupo_friki15 = "https://chat.whatsapp.com/J644aEYo8BXITv6ZOLyYpi" // 𝗕𝗼𝗹𝗮 𝗱𝗼 𝗱𝗿𝗮𝗴𝗼𝗻
+global.grupo_friki16 = "https://chat.whatsapp.com/IhWTZM7Wu36AiiXE7mfXak" // 𝗕𝗼𝗹𝗮 𝗱𝗲 𝗗𝗿𝗮𝗰 𝗲𝗻 𝗩𝗮𝗹𝗲𝗻𝗰𝗶𝗮
+
 global.mxcomunity = 'https://chat.whatsapp.com/HF9jfgQro6LKQy0WqPHRzF' //Comunidad

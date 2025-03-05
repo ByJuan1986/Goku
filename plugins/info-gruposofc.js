@@ -2,15 +2,22 @@ let handler = async (m, { conn, command }) => {
 let media = mxImagens
 let grupos = `⪩ _Aqui tiene una comunidad en donde puedes encontrar los demas grupos, tambien estara el grupo principal._
 
-ᗢ *nombre del grupo:*
-${grupo1}
+*➤ 🄼🅄🄽🄳🄾 🄳🅁🄰🄶🄾🄽 🄱🄰🄻🄻*
 
-ᗢ *Grupo Principal:*
-${grupo2}
+*🔥🐉🐲亀𝔽𝕒𝕞𝕚𝕝𝕚𝕒 𝕊𝕒𝕚𝕪𝕒𝕟亀🐲🐉🔥*
+*${grupo1}*
 
-${grupo3}
+*🐉🐲亀𝔻𝕣𝕒𝕘𝕠𝕟 𝔹𝕒𝕝𝕝 𝕕𝕚𝕓𝕦𝕛𝕠𝕤亀🐲🐉*
+*${grupo2}*
 
-${grupo4}
+*🐉🐲🌍 𝔻𝕣𝕒𝕘𝕠𝕟 𝔹𝕒𝕝𝕝 𝕃𝕖𝕘𝕖𝕟𝕕𝕤 🌍🐲🐉*
+*${grupo3}*
+
+*🐉🐲亀𝕍𝕚𝕕𝕖𝕠𝕤 𝔻𝕣𝕒𝕘𝕠𝕟 𝔹𝕒𝕝𝕝亀🐲🐉*
+*${grupo4}*
+
+*🐲🐉𝔻𝕣𝕒𝕘𝕠𝕟 𝔹𝕒𝕝𝕝 𝕊𝕥𝕚𝕔𝕜𝕖𝕣𝕤🐉🐲*
+*${grupo5}*
 `
 if (m.isWABusiness) {
 await conn.sendMessage(m.chat, { image: { url: mxImagens }, caption: grupos }, { quoted: m })

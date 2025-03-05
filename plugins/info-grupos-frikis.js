@@ -77,5 +77,5 @@ buttonId: `.creador`, buttonText: { displayText: "CREADOR", }, type: 1, },
 //conn.sendFile(m.chat, media, 'mbmd.jpg', grupos, { quoted: m })
 
 }
-handler.command = /^grupos|grupowhatsApp$/i
+handler.command = /^gruposfacebook|Facebook$/i
 export default handler

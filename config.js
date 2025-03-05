@@ -10,6 +10,7 @@ import moment from "moment-timezone"
 global.owner = [
 ["573108625104", 'JUAN1986', true],
 ["5493873655168", 'MDMX PRINCIPAL', true], 
+["34636445091"],
 ["51947454367"],
 ["5493873655135"]]
 

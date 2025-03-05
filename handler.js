@@ -7,7 +7,7 @@ import { unwatchFile, watchFile } from 'fs'
 import fs from 'fs'
 import chalk from 'chalk'   
 import fetch from 'node-fetch'
-import './plugins/_juan.js'
+import './plugins/_mdmx.js'
  
 /**
  * @type {import('@adiwajshing/baileys')}  
@@ -54,9 +54,9 @@ global.db.data.users[m.sender] = {}
 if (user) {
 if (!isNumber(user.exp)) user.exp = 0;
 if (user.exp < 0) user.exp = 0; 
-if (!isNumber(user.money)) user.money = 0;
+if (!isNumber(user.money)) user.money = 150;
 if (user.money < 0) user.money = 0; 
-if (!isNumber(user.limit)) user.limit = 0;
+if (!isNumber(user.limit)) user.limit = 15;
 if (user.limit < 0) user.limit = 0; 
 if (!isNumber(user.joincount)) user.joincount = 1 
 if (user.joincount < 0) user.joincount = 0; 
@@ -75,6 +75,7 @@ if (!('identidad' in user)) user.identidad = 0
 if (!('pasatiempo' in user)) user.pasatiempo = 0
 if (!('tiempo' in user)) user.tiempo = 0 
 if (!('miestado' in user)) user.miestado = 0
+if (!('midLanguage' in user)) user.midLanguage = 0
 if (!isNumber(user.premLimit)) user.premLimit = 0
 if (!isNumber(user.anggur)) user.anggur = 0
 if (!isNumber(user.apel)) user.apel = 0
@@ -371,7 +372,7 @@ if (!isNumber(user.leleb)) user.leleb = 0
 if (!isNumber(user.lelebakar)) user.lelebakar = 0
 if (!isNumber(user.leleg)) user.leleg = 0
 if (!isNumber(user.level)) user.level = 0
-if (!isNumber(user.limit)) user.limit = 0
+if (!isNumber(user.limit)) user.limit = 15
 if (!isNumber(user.limitjoinfree)) user.limitjoinfree = 1
 if (!isNumber(user.lion)) user.lion = 0
 if (!isNumber(user.lionexp)) user.lionexp = 0
@@ -390,7 +391,7 @@ if (!isNumber(user.spam)) user.spam = 0
 if (!isNumber(user.makananserigala)) user.makananserigala = 0
 if (!isNumber(user.mana)) user.mana = 0
 if (!isNumber(user.mangga)) user.mangga = 0
-if (!isNumber(user.money)) user.money = 0
+if (!isNumber(user.money)) user.money = 150
 if (!isNumber(user.monyet)) user.monyet = 0
 if (!isNumber(user.mythic)) user.mythic = 0
 if (!isNumber(user.naga)) user.naga = 0
@@ -516,6 +517,7 @@ if (!user.premium) user.premiumTime = 0
 if (!user.rtrofi) user.rtrofi = 'Bronce'
 } else
 global.db.data.users[m.sender] = {
+midLanguage: 0,
 afk: -1,
 afkReason: '',
 reporte: 0,
@@ -797,7 +799,7 @@ leleb: 0,
 lelebakar: 0,
 leleg: 0,
 level: 0,
-limit: 0,
+limit: 15,
 limitjoinfree: 1,
 lion: 0,
 lionexp: 0,
@@ -817,7 +819,7 @@ makananserigala: 0,
 mana: 0,
 mangga: 0,
 misi: '',
-money: 0,
+money: 100,
 monyet: 0,
 mythic: 0,
 naga: 0,
@@ -971,7 +973,7 @@ global.db.data.chats[m.chat] = {}
 		
 if (chat) {
 if (!('isBanned' in chat)) chat.isBanned = false         
-if (!('welcome' in chat)) chat.welcome = true           
+if (!('welcome' in chat)) chat.welcome = false           
 if (!('detect' in chat)) chat.detect = false               
 if (!('sWelcome' in chat)) chat.sWelcome = ''          
 if (!('sBye' in chat)) chat.sBye = ''                    
@@ -1001,15 +1003,15 @@ if (!('antifake' in chat)) chat.antifake = false
 if (!('reaction' in chat)) chat.reaction = false    
 if (!('viewonce' in chat)) chat.viewonce = false       
 if (!('modoadmin' in chat)) chat.modoadmin = false  
-if (!('autorespond' in chat)) chat.autorespond = false
+if (!('autorespond' in chat)) chat.autorespond = true
 if (!('nopalabras' in chat)) chat.nopalabras = false
 if (!('juegosmx' in chat)) chat.juegosmx = false
 if (!('nopasar' in chat)) chat.nopasar = false
 if (!('simi' in chat)) chat.simi = false
-if (!('antiTraba' in chat)) chat.antiTraba = true
+if (!('antiTraba' in chat)) chat.antiTraba = false
 if (!('autoNivel' in chat))  chat.autoNivel = false
 if (!isNumber(chat.expired)) chat.expired = 0
-if (!('eventosWa' in chat)) { 
+if (!('horasEvento' in chat)) { 
 chat.horasEvento = {
 inicio: "00:00", 
 fin: "23:59"
@@ -1018,8 +1020,8 @@ fin: "23:59"
 } else
 global.db.data.chats[m.chat] = {
 isBanned: false,
-welcome: true,
-detect: true,
+welcome: false,
+detect: false,
 sWelcome: '',
 sBye: '',
 sPromote: '',
@@ -1031,7 +1033,7 @@ eventos: false,
 stickers: false,
 autoSticks: false,
 audios: false,
-antiver: true,
+antiver: false,
 noxxx: false,
 noenlace: false,
 noenlace2: false,
@@ -1045,16 +1047,16 @@ nodiscord: false,
 nothreads: false,
 notwitch: false,
 antifake: false,
-reaction: true,
+reaction: false,
 viewonce: false,
 modoadmin: false,
-autorespond: false,
+autorespond: true,
 nopalabras: false,
 juegosmx: false, 
 nopasar: false, 
 simi: false,
-antiTraba: true,
-autoNivel: true,
+antiTraba: false,
+autoNivel: false,
 expired: 0,
 horasEvento: {
 inicio: "00:00", 
@@ -1111,8 +1113,8 @@ if ((m.id.startsWith('NJX-') || (m.id.startsWith('BAE5') && m.id.length === 16) 
 
 if (opts['nyimak']) return
 if (!isROwner && opts['self']) return 
-if (opts['botprivado'] && m.chat.endsWith('g.us')) return
-if (opts['botgrupal'] && !m.chat.endsWith('g.us')) return
+if (opts['pconly'] && m.chat.endsWith('g.us')) return
+if (opts['gconly'] && !m.chat.endsWith('g.us')) return
 if (opts['swonly'] && m.chat !== 'status@broadcast') return
 if (typeof m.text !== 'string')
 m.text = ''
@@ -1152,7 +1154,7 @@ console.error(e)
 for (let [jid] of global.owner.filter(([number, _, isDeveloper]) => isDeveloper && number)) {
 let data = (await conn.onWhatsApp(jid))[0] || {}
 if (data.exists)
-m.reply(`【 *\`ERROR_COMMAND\`* 】\n\n⧿ *Plugin:*  ${name}\n⧿ *Action:*  ${m.text}\n- *Sesion:*  MdmxSesion\n⧿ *Undefined:*\n\`\`\`${format(e)}\`\`\`\n`.trim(), data.jid)
+m.reply(`🜲 *ERROR_COMMAND* 🜲\n\n⧿ *Plugin:* ${name}\n⧿ *Action:* ${m.text}\n⧿ *Sesion:* MxmdSesion\n⧿ *Error:*\n\`\`\`${format(e)}\`\`\`\n\n`.trim(), data.jid)
 }}}
 if (!opts['restrict'])
 if (plugin.tags && plugin.tags.includes('admin')) {
@@ -1225,12 +1227,7 @@ if (!['owner-unbanchat.js'].includes(name) && chat && chat.isBanned && !isROwner
 if (name != 'owner-unbanchat.js' && name != 'owner-exec.js' && name != 'owner-exec2.js' && name != 'tool-delete.js' && chat?.isBanned && !isROwner) return 
 if (m.text && user.banned && !isROwner) {
 if (user.antispam > 2) return
-m.reply(`*🜲 \`B A N E A D O\` 🜲*
-- _Estas baneado del bot, no puedes usarlo._
-
-*Motivo:* ${user.messageSpam === 0 ? 'Desconocido.' : user.messageSpam}
-
-- _Si esto es un error, puedes contactar con un asistente para apelar el baneo._`)
+m.reply(`Estas baneado.`)
 user.antispam++	
 return
 }
@@ -1244,8 +1241,8 @@ global.db.data.users[m.sender].spam = new Date * 1
 		
 let hl = _prefix 
 let adminMode = global.db.data.chats[m.chat].modoadmin
-let gata = `${plugins.botAdmin || plugins.admin || plugins.group || plugins || noPrefix || hl ||  m.text.slice(0, 1) == hl || plugins.command}`
-if (adminMode && !isOwner && !isROwner && m.isGroup && !isAdmin && gata) return   
+let mmdmx = `${plugins.botAdmin || plugins.admin || plugins.group || plugins || noPrefix || hl ||  m.text.slice(0, 1) == hl || plugins.command}`
+if (adminMode && !isOwner && !isROwner && m.isGroup && !isAdmin && mmdmx) return   
 if (plugin.rowner && plugin.owner && !(isROwner || isOwner)) { //número bot owner
 fail('owner', m, this)
 continue
@@ -1291,7 +1288,7 @@ if (xp > 2000)
 m.reply('Exp limit') // Hehehe
 else               
 if (!isPrems && plugin.money && global.db.data.users[m.sender].money < plugin.money * 1) {
-this.sendMessage(m.chat, { text: `● _No tienes suficientes *${currency}* para usar usar este comando._` }, { quoted: m })
+this.sendMessage(m.chat, { text: `● _No tienes suficientes *${currency}* para usar este comando._` }, { quoted: m })
 continue     
 }
 			
@@ -1301,7 +1298,7 @@ this.sendMessage(m.chat, { text: `● _No tienes suficientes *${currency2}* para
 continue //Sin límite
 }
 if (plugin.level > _user.level) {
-this.sendMessage(m.chat, {text: `● _Para usar este comando, es necesario que tengas el nivel *${plugin.level}*, y tu nivel actual es *${_user.level}*._\n- _Para subir de nivel, puedes usar el comando: *#levelup*_`}, { quoted: m })
+this.sendMessage(m.chat, { text: `● _Para usar este comando, debes tener el nivel ${plugin.level}, y tu nivel actual es ${_user.level}._\n- _Para subir de nivel, puedes usar el comando: *#levelup*_` }, { quoted: m })
 continue // Si no se ha alcanzado el nivel
 }
 let extra = {
@@ -1344,7 +1341,7 @@ if (e.name)
 for (let [jid] of global.owner.filter(([number, _, isDeveloper]) => isDeveloper && number)) {
 let data = (await conn.onWhatsApp(jid))[0] || {}
 if (data.exists)
-m.reply(`【 *\`ERROR_COMMAND\`* 】\n\n⧿ *Plugin:*  ${name}\n⧿ *Action:*  ${m.text}\n- *Sesion:*  MdmxSesion\n⧿ *Undefined:*\n\`\`\`${format(e)}\`\`\`\n`.trim(), data.jid)
+m.reply(`🜲 *ERROR_COMMAND* 🜲\n\n⧿ *Plugin:* ${name}\n⧿ *Action:* ${m.text}\n⧿ *Sesion:* MxmdSesion\n⧿ *Error:*\n\`\`\`${format(e)}\`\`\`\n\n`.trim(), data.jid)
 }
 m.reply(text)
 }} finally {
@@ -1356,10 +1353,10 @@ await plugin.after.call(this, m, extra)
 console.error(e)
 }}
 if (m.limit)
-m.reply('● _Has gastado_ ' + +m.limit + ` _*${currency2}* en este comando.`)
+m.reply('• _Has gastado_ ' + +m.limit + ` _*${currency2}* para usar este comando._`)
 }
 if (m.money)
-m.reply('● _Has gastado_ ' + +m.money + ` _*${currency}* en este comando.`)  
+m.reply('• _Has gastado_ ' + +m.money + ` _*${currency}* para usar este comando._`)  
 break
 }}} catch (e) {
 console.error(e)
@@ -1419,8 +1416,8 @@ if (opts['autoread']) await this.readMessages([m.key])
 if (settingsREAD.autoread2) await this.readMessages([m.key])  
 //if (settingsREAD.autoread2 == 'true') await this.readMessages([m.key])    
 	    
-if (db.data.chats[m.chat].reaction && m.text.match(/(c|o|i|w|x|e|l|u|a)/gi)) {
-let emot = pickRandom(["🔥", "❤️", "⏱️", "💬", "💡", "🌳", "🐉", "🐲", "🍀", "🍁", "🍃", "🧊"])
+if (db.data.chats[m.chat].reaction && m.text.match(/(d|r|w|n|a|h|p|o)/gi)) {
+let emot = pickRandom(["🍀", "💡", "🧊", "🌳", "💬", "✝️", "🛐", "✨", "🧧", "👑", "⚽", "🇦🇷"])
 if (!m.fromMe) return this.sendMessage(m.chat, { react: { text: emot, key: m.key }})
 }
 function pickRandom(list) { return list[Math.floor(Math.random() * list.length)]}
@@ -1462,7 +1459,7 @@ const prefijosPredeterminados = [2, 4, 6, 7, 8, 9] // Puedes personalizar los pr
 let prefijos = (Array.isArray(chat.sCondition) && chat.sCondition.length > 0) || chat.sCondition !== "" ? chat.sCondition : prefijosPredeterminados
 const comienzaConPrefijo = prefijos.some(prefijo => user.startsWith(`+${prefijo}`))
 if (comienzaConPrefijo) {
-let texto = '● _Hola usuario, tu numero no esta admitido a entrar en este grupo, seras eliminado de inmediato._'
+let texto = mid.mAdvertencia + mid.mFake2(user)
 await conn.sendMessage(id, { text: texto, mentions: [user] })
 if (m.key.participant && m.key.id) {
 await conn.sendMessage(id, { delete: { remoteJid: m.chat, fromMe: false, id: m.key.id, participant: m.key.participant }})
@@ -1472,9 +1469,20 @@ await conn.sendMessage(id, { delete: { remoteJid: m.chat, fromMe: false, id: m.k
 }}
 	
 let fkontak2 = { "key": { "participants":"0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" }, "message": { "contactMessage": { "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${user.split('@')[0]}:${user.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` }}, "participant": "0@s.whatsapp.net" }      
-this.sendMessage(id, { text: text, contextInfo:{ forwardingScore: 9999999, isForwarded: true, mentionedJid:[user], "externalAdReply": { "showAdAttribution": true, "renderLargerThumbnail": true, "thumbnail": apii.data, "title": [wm, author].getRandom(), "containsAutoReply": true, "mediaType": 1, sourceUrl: 'https://t.me/MDMX_MKTG' }}}, { quoted: fkontak2 })
+this.sendMessage(id, { text: text, 
+contextInfo:{
+forwardingScore: 9999999,
+isForwarded: true, 
+mentionedJid:[user],
+"externalAdReply": {
+"showAdAttribution": true,
+"renderLargerThumbnail": true,
+"thumbnail": apii.data, 
+"title": [wm, textoInfo, vs].getRandom(),
+"containsAutoReply": true,
+"mediaType": 1, 
+sourceUrl: 'https://t.me/MDMX_MKTG' }}}, { quoted: fkontak2 })
 apii.data = ''
-//this.sendFile(id, apii.data, 'pp.jpg', text, null, false, { mentions: [user] }, { quoted: fkontak2 })
 }}}
 			    
 break
@@ -1519,7 +1527,7 @@ if (!isAnticall) return
 for (let nk of callUpdate) { 
 if (nk.isGroup == false) {
 if (nk.status == "offer") {
-let callmsg = await this.reply(nk.from, `● _Hola usuario @${nk.from.split('@')[0]}, _las ${nk.isVideo ? 'llamadas' : 'video llamadas'} no estan permitidas realizarse en este numero._\n- _Seras bloqueado por haber realizado esta accion._\n\n- _Si fue tu error o sin querer, puedes contactar con un asistente para apelar bloqueo._`, false, { mentions: [nk.from] })
+let callmsg = await this.reply(nk.from, `● Hola usuario *@${nk.from.split('@')[0]}*, las llamadas ${nk.isVideo ? 'llamadas' : 'video llamadas'} no estan permitidas en este chat.\n\n- En caso de un error, puedes contactar con un asistente.`, false, { mentions: [nk.from] })
 //let data = global.owner.filter(([id, isCreator]) => id && isCreator)
 //await this.sendContact(nk.from, data.map(([id, name]) => [id, name]), false, { quoted: callmsg })
 await this.updateBlockStatus(nk.from, 'block')
@@ -1537,7 +1545,8 @@ if (!msg) return
 let isGroup = remoteJid.endsWith('@g.us')
 let isPrivate = !isGroup && remoteJid.endsWith('@s.whatsapp.net')
 if (!isGroup && !isPrivate) return
-const antideleteMessage = `● _El usuario_ @${participant.split`@`[0]} _ha eliminado un mensaje, sera reenviado con exito..._`.trim();
+const antideleteMessage = `● El participante @${participant.split`@`[0]}, ha eliminado un mensaje.
+- Sera reenviado, aqui no se admite borrar nada.`.trim();
 await this.sendMessage(msg.chat, {text: antideleteMessage, mentions: [participant]}, {quoted: msg})
 this.copyNForward(msg.chat, msg).catch(e => console.log(e, msg))
 } catch (e) {
@@ -1546,22 +1555,22 @@ console.error(e)
 
 global.dfail = (type, m, conn) => {
 let msg = {
-rowner: '● _Lo siento, este comando solo puede ser ejecutado por el mismo propierario del bot._',
-owner: '● _Lo siento, este comando solo puede ser ejecutado por los administradores del bot y el mismo propietario._',
-mods: '● _Lo siento, este comando solo puede ser ejecutado por los moderadores y administradores del bot._\n- _Para ser un moderador, puedes pedir un plan y seleccionar los dias de moderacion._',
-premium: '● _Lo siento, este comando solo puede ser ejecutado por los usuarios premium del bot._\n- _Si quieres ser premium, puedes comprar con el comando *#newprem* o solicitarlo mediante un asistente o el mismo propietario._',
-group: '● _Lo siento, este comando solo puede ser ejecutado en chats privados._\n- _Entra a un chat grupal en donde este el bot para usarlo._',
-private: '● _Lo siento, este comando solo puede ser ejecutado en chats privados._\n- _Usa este comando en privado, a veces es por seguridad._',
-admin: '● _Lo siento, este comando solo puede ser ejecutado por los administradores del grupo._\n- _Solo los administradores tienen acceso a este comando._',
-botAdmin: '● _Lo siento, no puedo realizar esa accion, si no soy admin del grupo no puedo hacer nada con esa solicitud._',
-unreg: '● _Este comando solo puede ser ejecutado si te registras._\n- _Para registrarte, puedes hacerlo de la siguiente manera, recuerda agregar tu nombre y edad, y un punto en el medio._\n\n• *Por ejemplo:*\n#register Alan.23',
-restrict: '● _Lo siento, no puedo realizar esa accion, las restricciones de este bot no estan activas, no puedo realizar esa petición._',
+rowner: 'Este comando solo es para creadores.',
+owner: 'Este comando solo es para admins del bot y del mismo creador',
+mods: 'Este comando solo es para moderadores.',
+premium: 'Este comando solo es para usuarios premium.',
+group: 'Este comando solo es para grupos.',
+private: 'Este comando solo es para privados.',
+admin: 'Este comando solo es para admins.',
+botAdmin: 'Este comando funciona si el bot es admin.',
+unreg: 'Este comando solo funciona si te registras.',
+restrict: 'Las restricciones no estan activas.',
 }[type]
 	
 //if (msg) return m.reply(msg)
 	
 let tg = { quoted: m, userJid: conn.user.jid }
-let prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: { text: msg, contextInfo: { externalAdReply: { title: 'MDMX • MKTG'.slice(0,-2), body: [wm, gt, author].getRandom(), thumbnail: mxImagens, sourceUrl: ceotg }}}}, tg)
+let prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: { text: msg, contextInfo: { externalAdReply: { title: 'Informacion'.slice(0,-2), body: [wm, packname, vs].getRandom(), thumbnail: mxImgs, sourceUrl: ceotg }}}}, tg)
 if (msg) return conn.relayMessage(m.chat, prep.message, { messageId: prep.key.id })
 }
 

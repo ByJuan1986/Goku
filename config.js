@@ -516,9 +516,10 @@ global.paypal = '• *Enlace:* https://www.paypal.me/mbmdoficial'
 global.canaltg = 'https://t.me/MDMX_CHANNEL'
 global.canalwa = 'https://whatsapp.com/channel/0029Vako2qm3WHTP1YZrLt1D'
 global.canalwa2 = 'https://whatsapp.com/channel/0029VarxxPbI1rcZMcwKBl2z'
-global.grupo1 = 'https://chat.whatsapp.com/L2vpoClRqYC6wsmGC0gFqS'
-global.grupo2 = 'https://chat.whatsapp.com/ELy0mvOw5JyLnHmwFY7j1K'
-global.grupo3 = 'https://chat.whatsapp.com/LmDvJZWd0eQCzhR8lwJ5B4'
-global.grupo4 = 'https://chat.whatsapp.com/LddDN9xDXcg15IuOirylqZ'
-global.grupo5 = 'https://chat.whatsapp.com/EaTmnGSAX3pH06Dl7MRzmV'
+// grupos de WhatsApp de dragon ball 
+global.grupo1 = "https://chat.whatsapp.com/LmDvJZWd0eQCzhR8lwJ5B4" //🔥🐉🐲亀𝔽𝕒𝕞𝕚𝕝𝕚𝕒 𝕊𝕒𝕚𝕪𝕒𝕟亀🐲🐉🔥
+global.grupo2 = "https://chat.whatsapp.com/LddDN9xDXcg15IuOirylqZ" // 🐉🐲亀𝔻𝕣𝕒𝕘𝕠𝕟 𝔹𝕒𝕝𝕝 𝕕𝕚𝕓𝕦𝕛𝕠𝕤亀🐲🐉
+global.grupo3 = "https://chat.whatsapp.com/L2vpoClRqYC6wsmGC0gFqS" // 🐉🐲🌍 𝔻𝕣𝕒𝕘𝕠𝕟 𝔹𝕒𝕝𝕝 𝕃𝕖𝕘𝕖𝕟𝕕𝕤 🌍🐲🐉
+global.grupo4 = "https://chat.whatsapp.com/EaTmnGSAX3pH06Dl7MRzmV" //🐉🐲亀𝕍𝕚𝕕𝕖𝕠𝕤 𝔻𝕣𝕒𝕘𝕠𝕟 𝔹𝕒𝕝𝕝亀🐲🐉
+global.grupo5 = "https://chat.whatsapp.com/K1FSWdgwuzTL1z08NVYJNw" //🐲🐉𝔻𝕣𝕒𝕘𝕠𝕟 𝔹𝕒𝕝𝕝 𝕊𝕥𝕚𝕔𝕜𝕖𝕣𝕤🐉🐲
 global.mxcomunity = 'https://chat.whatsapp.com/HF9jfgQro6LKQy0WqPHRzF' //Comunidad

@@ -11,7 +11,7 @@ conn.sendMessage(m.chat, { text: `Lo siento, por el momento no puedo crear image
 console.error(error)
 }}
 
-handler.customPrefix = /@+54 9 3873 65-5135|@+5493873655135|@imagina/i
+handler.customPrefix = /@+54 9 11 3398-2337|@+5491133982337|@imagina/i
 handler.command = new RegExp
 
 export default handler

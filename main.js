@@ -1,6 +1,6 @@
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '1'
 import './config.js' 
-import './plugins/_mdmx.js'
+import './plugins/_juan.js'
 import { createRequire } from 'module'
 import path, { join } from 'path'
 import {fileURLToPath, pathToFileURL} from 'url'
@@ -22,7 +22,7 @@ import PQueue from 'p-queue'
 import store from './lib/store.js'
 import readline from 'readline'
 import NodeCache from 'node-cache' 
-import { mdmxBots } from './plugins/_mxrent.js';
+import { mdmxBots } from './plugins/_serbot.js';
 import pkg from 'google-libphonenumber'
 const { PhoneNumberUtil } = pkg
 const phoneUtil = PhoneNumberUtil.getInstance()

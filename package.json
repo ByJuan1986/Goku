@@ -1,5 +1,5 @@
 {
-"name": "MDMX",
+"name": "goku",
 "version": "8.3.0", 
 "description": "Chat bot con funciones unicas.",
 "main": "index.js",
@@ -17,16 +17,16 @@
 "test": "node test.js",
 "test2": "nodemon index.js" },
     
-"homepage": "https://github.com/MBMD-OFC/MDMX",
+"homepage": "https://github.com/ByJuan1986/Goku.git",
 "author": {
 "name": "MBMD-OFC" },
     
 "repository": {
 "type": "git",
-"url": "git+https://github.com/MBMD-OFC/MDMX.git" },
+"url": "git+https://github.com/ByJuan1986/Goku.git" },
 
 "bugs": {
-"url": "https://github.com/MBMD-OFC/MDMX/issues" },
+"url": "https://github.com/ByJuan1986/Goku.git" },
 "license": "GPL-3.0-or-later",
 "dependencies": {
 "@whiskeysockets/baileys": "github:ds6/lyru-baileys",

@@ -22,7 +22,7 @@ import PQueue from 'p-queue'
 import store from './lib/store.js'
 import readline from 'readline'
 import NodeCache from 'node-cache' 
-import { mdmxBots } from './plugins/_mxrent.js';
+import { mdmxBots } from './plugins/_serbot.js';
 import pkg from 'google-libphonenumber'
 const { PhoneNumberUtil } = pkg
 const phoneUtil = PhoneNumberUtil.getInstance()
@@ -50,29 +50,29 @@ const databasePath = path.join(__dirname, 'database');
 if (!fs.existsSync(databasePath)) fs.mkdirSync(databasePath);
 
 const paths = {
-    users: path.join(databasePath, 'users'),
-    chats: path.join(databasePath, 'chats'),
-    settings: path.join(databasePath, 'settings'),
-    msgs: path.join(databasePath, 'msgs'),
-    sticker: path.join(databasePath, 'sticker'),
-    stats: path.join(databasePath, 'stats'),
+users: path.join(databasePath, 'users'),
+chats: path.join(databasePath, 'chats'),
+settings: path.join(databasePath, 'settings'),
+msgs: path.join(databasePath, 'msgs'),
+sticker: path.join(databasePath, 'sticker'),
+stats: path.join(databasePath, 'stats'),
 };
 
 Object.values(paths).forEach(dir => {
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+if (!fs.existsSync(dir)) fs.mkdirSync(dir);
 });
 
 const queue = new PQueue({ concurrency: 5 });
 
 global.db = {
-    data: {
-        users: {},
-        chats: {},
-        settings: {},
-        msgs: {},
-        sticker: {},
-        stats: {},
-    },
+data: {
+users: {},
+chats: {},
+settings: {},
+msgs: {},
+sticker: {},
+stats: {},
+},
 };
 
 function getFilePath(category, id) {
@@ -80,91 +80,90 @@ return path.join(paths[category], `${id}.json`);
 }
 
 async function readFile(category, id) {
-    const filePath = getFilePath(category, id);
-    const db = new Low(new JSONFile(filePath));
-    await db.read();
-    db.data = db.data || {};
-    return db.data;
+const filePath = getFilePath(category, id);
+const db = new Low(new JSONFile(filePath));
+await db.read();
+db.data = db.data || {};
+return db.data;
 }
 
 async function writeFile(category, id, data) {
-    const filePath = getFilePath(category, id);
-    const db = new Low(new JSONFile(filePath));
-    await db.read();
-    db.data = { ...db.data, ...data };    
-    await db.write();
+const filePath = getFilePath(category, id);
+const db = new Low(new JSONFile(filePath));
+await db.read();
+db.data = { ...db.data, ...data };
+await db.write();
 }
 
 global.db.readData = async function (category, id) {
-    if (!global.db.data[category][id]) {
-        const data = await queue.add(() => readFile(category, id));
-        global.db.data[category][id] = data;
-    }
-    return global.db.data[category][id];
+if (!global.db.data[category][id]) {
+const data = await queue.add(() => readFile(category, id));
+global.db.data[category][id] = data;
+}
+return global.db.data[category][id];
 };
 
 global.db.writeData = async function (category, id, data) {
-    global.db.data[category][id] = { ...global.db.data[category][id], ...data };
-    await queue.add(() => writeFile(category, id, global.db.data[category][id]));
+global.db.data[category][id] = { ...global.db.data[category][id], ...data };
+await queue.add(() => writeFile(category, id, global.db.data[category][id]));
 };
 
 global.db.loadDatabase = async function () {
-    const categories = ['users', 'chats', 'settings', 'msgs', 'sticker', 'stats'];
-    const loadPromises = [];
+const categories = ['users', 'chats', 'settings', 'msgs', 'sticker', 'stats'];
+const loadPromises = [];
 
-    for (const category of categories) {
-        const files = fs.readdirSync(paths[category]);
-        for (const file of files) {
-            const id = path.basename(file, '.json');
-            if (category === 'users' && (id.includes('@newsletter') || id.includes('lid'))) continue;
-            if (category === 'chats' && id.includes('@newsletter')) continue;
+for (const category of categories) {
+const files = fs.readdirSync(paths[category]);
+for (const file of files) {
+const id = path.basename(file, '.json');
+if (category === 'users' && (id.includes('@newsletter') || id.includes('lid'))) continue;
+if (category === 'chats' && id.includes('@newsletter')) continue;
 
-            loadPromises.push(
-                queue.add(() => readFile(category, id))
-                    .then(data => {
-                        global.db.data[category][id] = data;
-                    })
-                    .catch(err => console.error(`Error cargando ${category}/${id}:`, err))
-            );
-        }
-    }
+loadPromises.push(
+queue.add(() => readFile(category, id))
+.then(data => {
+global.db.data[category][id] = data;
+})
+.catch(err => console.error(`Error cargando ${category}/${id}:`, err))
+);
+}
+}
 
-    await Promise.all(loadPromises);
-    console.log('Base de datos cargada');
+await Promise.all(loadPromises);
+console.log(`( COMPLETED ): ¡Se ha cargado la base de datos con exito en MDMX!`);
 };
 
 global.db.save = async function () {
-    const categories = ['users', 'chats', 'settings', 'msgs', 'sticker', 'stats'];
+const categories = ['users', 'chats', 'settings', 'msgs', 'sticker', 'stats'];
 
-    for (const category of categories) {
-        for (const [id, data] of Object.entries(global.db.data[category])) {
-            if (Object.keys(data).length > 0) {
-                if (category === 'users' && (id.includes('@newsletter') || id.includes('lid'))) continue;
-                if (category === 'chats' && id.includes('@newsletter')) continue;
+for (const category of categories) {
+for (const [id, data] of Object.entries(global.db.data[category])) {
+if (Object.keys(data).length > 0) {
+if (category === 'users' && (id.includes('@newsletter') || id.includes('lid'))) continue;
+if (category === 'chats' && id.includes('@newsletter')) continue;
 
-                await queue.add(() => writeFile(category, id, data));                
-            }
-        }
-    }
+await queue.add(() => writeFile(category, id, data));
+}
+}
+}
 };
 
 global.db.loadDatabase().then(() => {
 }).catch(err => console.error(err));
 
-
-/* ------------------------------------------------*/
-
+//•─────────•「 SESIONES 」
+//•─• ⌕ Esta sesion solo estara diseñado para MDMX.
 global.creds = 'creds.json'
-global.authFile = 'MdmxSesion'
-global.authFileJB  = 'MdmxDirector'
+global.authFile = 'GokuSesion'
+global.authFileMX = 'MdmxDirector'
 global.rutaBot = join(__dirname, authFile)
-global.rutaJadiBot = join(__dirname, authFileJB)
+global.rutaMxBots = join(__dirname, authFileMX)
 const respaldoDir = join(__dirname, 'BackupSession');
 const credsFile = join(global.rutaBot, global.creds);
 const backupFile = join(respaldoDir, global.creds);
 
-if (!fs.existsSync(rutaJadiBot)) {
-fs.mkdirSync(rutaJadiBot)}
+if (!fs.existsSync(rutaMxBots)) {
+fs.mkdirSync(rutaMxBots)}
 
 if (!fs.existsSync(respaldoDir)) fs.mkdirSync(respaldoDir);
 
@@ -197,28 +196,27 @@ if (methodCodeQR) {
 opcion = '1'
 }
 if (!methodCodeQR && !methodCode && !fs.existsSync(`./${authFile}/creds.json`)) {
+
+//•─────────•「 MENSAJE DE CONSOLA 」
+//•─• ⌕ Esto saldra en la consola una vez conectado el bot, tambien saldra lo mismo en ( index.js ).
 do {
 opcion = await question(`
-┌─────────────────
-│${chalk.greenBright('SELECCIONE UNA OPCION')}
-└─────────────────
-❒ ${chalk.greenBright('1 :')} ${chalk.blueBright('Escanear un codigo QR.')}
-❒ ${chalk.greenBright('2 :')} ${chalk.blueBright('Vincular con codigo de 8 digitos.')}
-\n${chalk.bold.greenBright('---> ')}`)
+╭──────────────────────────
+│SELECCIONE UNA OPCION VALIDA
+╰──────────────────────────
+❒ 1 > Vincular con codigo QR.
+❒ 2 > Vincular con codigo de 8 Digitos.
+NOTE: Escriba el numero en la consola a su eleccion para vincularte con MDMX.
+'No se admiten letras o simbolos, solo esos dos numeros.
+
+${chalk.blueBright('--> ')}`)
 if (!/^[1-2]$/.test(opcion)) {
-console.log(chalk.bold.redBright('ERROR: Solo puedes usar un numero, nada de letras o simbolos.'))
+//console.log(chalk.bold.redBright(`${chalk.bold.yellowBright("(")} ERROR ${chalk.bold.yellowBright("):")} ${chalk.bold.cyanBright("Seleccione solo una opcion de los dos numeros que aparecen en la consola.")}\nSolo existe el numero ${chalk.bold.greenBright("1")} y ${chalk.bold.greenBright("2")} para elegir, vuelva a intentarlo.`))
+console.log(chalk.bold.redBright(`(ERROR): Ocurrio un error inesperado al definir el numero, vuelva a intentarlo...`)
 }} while (opcion !== '1' && opcion !== '2' || fs.existsSync(`./${authFile}/creds.json`))
 }
 
-const filterStrings = [
-"Q2xvc2luZyBzdGFsZSBvcGVu", // "Closing stable open"
-"Q2xvc2luZyBvcGVuIHNlc3Npb24=", // "Closing open session"
-"RmFpbGVkIHRvIGRlY3J5cHQ=", // "Failed to decrypt"
-"U2Vzc2lvbiBlcnJvcg==", // "Session error"
-"RXJyb3I6IEJhZCBNQUM=", // "Error: Bad MAC" 
-"RGVjcnlwdGVkIG1lc3NhZ2U=" // "Decrypted message" 
-]
-
+const filterStrings = [ "Q2xvc2luZyBzdGFsZSBvcGVu", "Q2xvc2luZyBvcGVuIHNlc3Npb24=", "RmFpbGVkIHRvIGRlY3J5cHQ=", "U2Vzc2lvbiBlcnJvcg==", "RXJyb3I6IEJhZCBNQUM=", "RGVjcnlwdGVkIG1lc3NhZ2U=" ]
 
 console.info = () => {} 
 console.debug = () => {} 
@@ -231,11 +229,11 @@ auth: {
 creds: state.creds,
 keys: makeCacheableSignalKeyStore(state.keys, Pino({ level: "fatal" }).child({ level: "fatal" })),
 },
-browser: opcion == '1' ? ['GataBot-MD', 'Edge', '20.0.04'] : methodCodeQR ? ['MDMX', 'Edge', '20.0.04'] : ["Ubuntu", "Chrome", "20.0.04"],
+browser: opcion == '1' ? ['GokuBot-MD', 'Edge', '20.0.04'] : methodCodeQR ? ['GokuBot-MD', 'Edge', '20.0.04'] : ["Ubuntu", "Chrome", "20.0.04"],
 version: version,
 generateHighQualityLinkPreview: true
 };
-    
+
 global.conn = makeWASocket(connectionOptions)
 
 if (!fs.existsSync(`./${authFile}/creds.json`)) {
@@ -247,7 +245,7 @@ if (!!phoneNumber) {
 addNumber = phoneNumber.replace(/[^0-9]/g, '')
 } else {
 do {
-phoneNumber = await question(chalk.bgBlack(chalk.bold.greenBright('(ACCESS): Ingrese un numero de WhatsApp completo y todo junto con el cual se vinculara.\nPor ejemplo: +549387827372\n')))
+phoneNumber = await question(chalk.bgBlack(chalk.bold.greenBright(`✅ Ingrese su numero de telefono completo para vincular.\nPor ejemplo: +5493873655135\n${chalk.bold.blueBright("--> ")}`)))
 phoneNumber = phoneNumber.replace(/\D/g,'')
 if (!phoneNumber.startsWith('+')) {
 phoneNumber = `+${phoneNumber}`
@@ -258,7 +256,7 @@ addNumber = phoneNumber.replace(/\D/g, '')
 setTimeout(async () => {
 let codeBot = await conn.requestPairingCode(addNumber)
 codeBot = codeBot?.match(/.{1,4}/g)?.join("-") || codeBot
-console.log(chalk.bold.white(chalk.bgGreen('CODIGO:')), chalk.bold.white(chalk.white(codeBot)))
+console.log(chalk.bold.white(chalk.bgGreen("CODIGO DE VINCULACION:")), chalk.bold.white(chalk.white(codeBot)))
 }, 2000)
 }}}
 }
@@ -279,29 +277,36 @@ if (store) {
 conversation: 'SimpleBot',
 }}
 
-//respaldo de la sesión "MdmxSesion"
+//•─────────•「 SESION 」
+//•─• ⌕ Inicio de restaldos en la sesion de MDMX (GokuSesion).
 const backupCreds = () => {
 if (fs.existsSync(credsFile)) {
 fs.copyFileSync(credsFile, backupFile);
-console.log(`(ACCESS): Se ha creado un respaldo en ${backupFile} exitosamente.`);
+console.log(`( SUCCESS ): Se ha creado un respaldo en MDMX al ${backupFile}`);
+//console.log(`respaldo en ${backupFile}`);
 } else {
-console.log('(ERROR): No se ha encontrado el archivo creds.json para crear un respaldo...');
+console.log(`ERROR --> No se ha encontrado el archivo ( creds.json ) para iniciar el respaldo.`);
+//console.log('No se encontró el archivo creds.json');
 }};
 
 const restoreCreds = () => {
 if (fs.existsSync(credsFile)) {
 fs.copyFileSync(backupFile, credsFile);
-console.log(`(ACCESS) El archivo creds.json ha sido respaldado exitosamente.`);
+console.log(`( SUCCESS ): Se ha realizado el reemplazo de creds.json con exito en MDMX.`);
+//console.log(`creds.json reemplazado desde el respaldo.`);
 } else if (fs.existsSync(backupFile)) {
 fs.copyFileSync(backupFile, credsFile);
-console.log(`(ACCESS) Se ha retaurado el archivo creds.json en el respaldo exitosamente.`);
+console.log(`( SUCCESS ): Se ha restaurado el archivo de creds.json con exito en el respaldo.`);
+//console.log(`creds.json restaurado.`);
 } else {
-console.log('(RARE): Ocurrio un error desconocido, no se encontro el archivo creds.json ni el archivo de respaldo.');
+console.log(`( ERROR ): No se ha encontrado el archivo creds.json y tampoco el archivo de respaldo.`);
+//console.log('No existe el creds.json ni el respaldo.');
 }};
 
 setInterval(async () => {
 await backupCreds();
-console.log('(ACCESS): Se ha realizado un respaldo afortunado con exito.');
+console.log(`( SUCCESS ): Se ha realizado un respaldo en creds.json con exito en MDMX.\n--> Se hara otro respaldo en 5 minutos.`);
+//console.log('Respaldo periódico realizado.');
 }, 5 * 60 * 1000);
 
 async function connectionUpdate(update) {  
@@ -311,46 +316,52 @@ if (isNewLogin) conn.isInit = true
 const code = lastDisconnect?.error?.output?.statusCode || lastDisconnect?.error?.output?.payload?.statusCode
 if (code && code !== DisconnectReason.loggedOut && conn?.ws.socket == null) {
 await global.reloadHandler(true).catch(console.error)
-//console.log(await global.reloadHandler(true).catch(console.error));
 global.timestamp.connect = new Date
 }
 if (global.db.data == null) loadDatabase()
 if (update.qr != 0 && update.qr != undefined || methodCodeQR) {
 if (opcion == '1' || methodCodeQR) {
-console.log(chalk.bold.green('(ACCESS): Escanee el codigo QR para vincular su numero de WhatsApp, el codigo expira en 60 segundos...'))}
+console.log(`( SUCCESS ): Escanee el codigo QR, el tiempo de expiracion es en 1 minuto...`)}
 }
 if (connection == 'open') {
-console.log(chalk.bold.greenBright('(ACCESS): Conexion con exito a WhatsApp, puede probar entrando a un chat y ver si responde las respuestas.'))
+console.log(`( CONNECTED ): Se ha conectado con exito a WhatsApp.`)
 await joinChannels(conn)}
 let reason = new Boom(lastDisconnect?.error)?.output?.statusCode
 if (connection === 'close') {
 if (reason === DisconnectReason.badSession) {
-console.log(chalk.bold.cyanBright(`(ERROR): Se ha detectado un error para iniciar sesion, borre la carpeta ${authFile} para volver a pedir codigo QR o Codigo de 8 digitos.`))
+console.log(`( ERROR ): Ha ocurrido un error en la vinculacion, borre la carpeta ${global.authFile} y vuelva a solicitar un codigo.`)
+//console.log(chalk.bold.redBright('Borre la carpeta de GokuSesion.'))
 } else if (reason === DisconnectReason.connectionClosed) {
-console.log(chalk.bold.yellowBright('(NOTIFY): Se ha cerrado la conexion, se intentara reconectar, de lo contrario reinicie el servidor.'))
+console.log(`( ERROR ): Se ha detenido la conexion, se intentara reconectar, espere un momento...\n--> NOTE: Reinicie el servidor si de lo contrario no funciona.`)
+//console.log(chalk.bold.redBright('Conexion perdida..'))
 restoreCreds();
 await global.reloadHandler(true).catch(console.error)
 } else if (reason === DisconnectReason.connectionLost) {
-console.log(chalk.bold.redBright('(ERROR): Se ha perdido la conexion con el numero vinculado, se intentara vincular, de lo contrario reinicie el servidor.'))
+console.log(`( ERROR ): Se ha perdido la conexion con la vinculacion, se intentara reconectar en breve, espere un momento....`)
+//console.log(chalk.bold.redBright('Conexion perdida..'))
 restoreCreds();
 await global.reloadHandler(true).catch(console.error)
 } else if (reason === DisconnectReason.connectionReplaced) {
-console.log(chalk.bold.yellowBright('(WARNING): El numero ha vinculado otro terminal desconocido, borre esa sesion para evitar errores en esta sesion vinculada.'))
+console.log(`( INFORMATION ): Se ha detectado una nueva sesion vinculada en los dispositivos vinculados.\n--> NOTE: Elimine esa nueva sesion para evitar errores en la sesion principal.`)
+//console.log(chalk.bold.cyanBright('La conexion ha sido reemplazada.'))
 } else if (reason === DisconnectReason.loggedOut) {
-console.log(chalk.bold.redBright(`(ERROR): Se ha detectado un error para iniciar sesion, borre la carpeta ${authFile} para volver a pedir codigo QR o Codigo de 8 digitos.`))
+console.log(`( ERROR ): Ha ocurrido nuevamente el error en la vinculacion, borre la carpeta ${global.authFile} y vuelva a solicitar un codigo.`)
+//console.log(chalk.bold.redBright('Borre la carpeta de GokuSesion.'))
 await global.reloadHandler(true).catch(console.error)
 } else if (reason === DisconnectReason.restartRequired) {
-console.log(chalk.bold.cyanBright('(RARE): Parece que se ha reiniciado los datos de la vinculacion, esto puede causar algunos errores, reconectando servicios...'))
+console.log(`( INFORMATION ): Se reiniciaran los datos de la conexion, tenga paciencia y espere un momento...\n--> NOTE: Si de lo contrario ocurre un error, reinicie el servidor.`)
+//console.log(chalk.bold.greenBright('Conexion reemplazado.'))
 await global.reloadHandler(true).catch(console.error)
 } else if (reason === DisconnectReason.timedOut) {
-console.log(chalk.bold.redBright('(ERROR): El tiempo para vincular el dispositivo ha caducado, no se hayo ninguna respuesta, intentalo de nuevo mas tarde.'))
-await global.reloadHandler(true).catch(console.error) //process.send('reset')
+console.log(`( TIME EXPIRED ): Se ha terminado el tiempo de espera para la vinculacion, intentelo de nuevo solicitando un codigo.\n--> NOTE: Es importante que verifiques que se haya creado la carpeta ${global.authFile}.\n--> Elimina carpeta si es asi e intenta vincular de nuevo con un codigo.`)
+//console.log(chalk.bold.redBright('Tiempo agotado en la vinculacion.'))
+await global.reloadHandler(true).catch(console.error) 
 } else {
-console.log(chalk.bold.redBright('(WARNING): Razon de desconexion desconocida, se ha registrado un error desconocido, consulta con el soporte tegnico.'))
+console.log(`( ERROR ): Ocurrio un error en el bot, la razon de desconexion es desconocida.`)
+//console.log(chalk.bold.redBright('Desconocido'))
 }}
 }
 process.on('uncaughtException', console.error);
-
 
 let isInit = true;
 let handler = await import('./handler.js');
@@ -380,14 +391,15 @@ conn.ev.off('connection.update', conn.connectionUpdate);
 conn.ev.off('creds.update', conn.credsUpdate);
 }
 
-conn.welcome = `╭─• ≻ *¡¡¡BIENVENIDO!!!*\n╰• _¡Nos alegra que hayas entrado aqui!_\n\n*Nuevo:* ➛ @user\n\n*Nombre grupal:* ➛ @subject\n\n*\`REGLAS:\`*\n${String.fromCharCode(8206).repeat(850)}\n@desc`
-conn.bye = `╭─• ≻ *¡¡¡HASTA PRONTO!!!*\n╰• _¡Que tus dias vayan mejor, adios!_\n\n*Usuario:* ➛ @user` 
-conn.spromote = `● _¡Se ha asignado un nuevo admin en el grupo!_\n\n- *Nuevo admin:* @user` 
-conn.sdemote = `● _¡Se ha designado un admin en el grupo!_\n\n- *Admin designado:* @user` 
-conn.sDesc = `● _¡Se ha modificado la descripcion del grupo recientemente!_` 
-conn.sSubject = `● _¡Se ha modificado el nombre grupal recientemente!_` 
-conn.sIcon = `● _¡Se ha modificado el perfil grupal recientemente!_` 
-conn.sRevoke = `● _¡Se ha restablecido el enlace grupal recientemente!_\n\n- *Nuevo enlace:* @revoke` 
+conn.welcome = `╭─• ≻ *¡¡¡BIENVENIDO!!!*\n╰• _¡Nos alegra que hayas entrado aqui!_\n\n*Nuevo:* ➛ @user\n\n*Nombre grupal:* ➛ @subject\n\n*\`REGLAS:\`*\n${String.fromCharCode(8206).repeat(850)}\n@desc`;
+conn.bye = `╭─• ≻ *¡¡¡HASTA PRONTO!!!*\n╰• _¡Que tus dias vayan mejor, adios!_\n\n*Usuario:* ➛ @user`;
+conn.spromote = `● _¡Se ha asignado un nuevo admin en el grupo!_\n\n- *Nuevo admin:* @user`;
+conn.sdemote = `● _¡Se ha designado un admin en el grupo!_\n\n- *Admin designado:* @user`;
+conn.sDesc = `● _¡Se ha modificado la descripcion del grupo recientemente!_`;
+conn.sSubject = `● _¡Se ha modificado el nombre grupal recientemente!_`;
+conn.sIcon = `● _¡Se ha modificado el perfil grupal recientemente!_`;
+conn.sRevoke = `● _¡Se ha restablecido el enlace grupal recientemente!_\n\n- *Nuevo enlace:* @revoke`;
+
 conn.handler = handler.handler.bind(global.conn);
 conn.participantsUpdate = handler.participantsUpdate.bind(global.conn);
 conn.groupsUpdate = handler.groupsUpdate.bind(global.conn);
@@ -395,6 +407,7 @@ conn.onDelete = handler.deleteUpdate.bind(global.conn);
 conn.onCall = handler.callUpdate.bind(global.conn);
 conn.connectionUpdate = connectionUpdate.bind(global.conn);
 conn.credsUpdate = saveCreds.bind(global.conn, true);
+
 conn.ev.on('messages.upsert', conn.handler);
 conn.ev.on('group-participants.update', conn.participantsUpdate);
 conn.ev.on('groups.update', conn.groupsUpdate);
@@ -405,34 +418,19 @@ conn.ev.on('creds.update', conn.credsUpdate);
 isInit = false
 return true
 }
-/** Arranque nativo para subbots by - ReyEndymion >> https://github.com/ReyEndymion
- */
-if (global.gataJadibts) {
-const readRutaJadiBot = readdirSync(rutaJadiBot)
-if (readRutaJadiBot.length > 0) {
+
+if (global.mdmxBots) {
+const ConectorMxBots = readdirSync(rutaMxBots)
+if (ConectorMxBots.length > 0) {
 const creds = 'creds.json'
-for (const gjbts of readRutaJadiBot) {
-const botPath = join(rutaJadiBot, gjbts)
+for (const gjbts of ConectorMxBots) {
+const botPath = join(rutaMxBots, gjbts)
 const readBotPath = readdirSync(botPath)
 if (readBotPath.includes(creds)) {
-mdmxBots({pathMdmxBotsWa: botPath, m: null, conn, args: '', usedPrefix: '/', command: 'serbot'})
+mdmxBots({pathMxBots: botPath, m: null, conn, args: '', usedPrefix: '/', command: 'serbot'})
 }}
 }}
 
-/*const pluginFolder = global.__dirname(join(__dirname, './plugins/index'));
-const pluginFilter = (filename) => /\.js$/.test(filename);
-global.plugins = {};
-async function filesInit() {
-for (const filename of readdirSync(pluginFolder).filter(pluginFilter)) {
-try {
-const file = global.__filename(join(pluginFolder, filename));
-const module = await import(file);
-global.plugins[filename] = module.default || module;
-} catch (e) {
-conn.logger.error(e);
-delete global.plugins[filename];
-}}}
-filesInit().then((_) => Object.keys(global.plugins)).catch(console.error)*/
 
 const pluginFolder = global.__dirname(join(__dirname, './plugins/index'))
 const pluginFilter = (filename) => /\.js$/.test(filename)
@@ -453,23 +451,23 @@ global.reload = async (_ev, filename) => {
 if (pluginFilter(filename)) {
 const dir = global.__filename(join(pluginFolder, filename), true)
 if (filename in global.plugins) {
-if (existsSync(dir)) conn.logger.info(`( UPDATE ): Se ha actualizado el archivo '${filename}' exitosamente.`)
+if (existsSync(dir)) conn.logger.info(`( SUCCESS ): ¡Se ha actualizado el archivo '${filename}' con exito en MDMX!`)
 else {
-conn.logger.warn(`( DELETE FILE ): Se ha eliminado el archivo '${filename}' exitosamente.`)
+conn.logger.warn(`( SUCCESS ): ¡Se ha eliminado el archivo '${filename}' con exito en MDMX!`)
 return delete global.plugins[filename];
 }
-} else conn.logger.info(`( NEW ): Se ha agregado un nuevo archivo '${filename}' exitosamente.`)
+} else conn.logger.info(`( SUCCESS ): ¡Se ha agregado un nuevo archivo llamado '${filename}' con exito en MDMX!`)
 const err = syntaxerror(readFileSync(dir), filename, {
 sourceType: 'module',
 allowAwaitOutsideFunction: true,
 });
-if (err) conn.logger.error(`( SINTAXIS ERROR ): Se ha detectado un error de sintaxis en el archivo '${filename}'\nTipo de error: ${format(err)}`);
+if (err) conn.logger.error(`( ERROR ): Se ha detectado un error de sintaxis en el archivo: '${filename}'\n--> Tipo de error estimado: ${format(err)}`);
 else {
 try {
 const module = (await import(`${global.__filename(dir)}?update=${Date.now()}`));
 global.plugins[filename] = module.default || module;
 } catch (e) {
-conn.logger.error(`( REQUIRE ERROR ): Se ha detectado un error, requiere el plugin: '${filename}\nTipo de error: ${format(e)}'`);
+conn.logger.error(`( INFORMATION ): Hay un error en el codigo, se requiere el plugin: '${filename}\n--> Tipo de error estimado: ${format(e)}'`);
 } finally {
 global.plugins = Object.fromEntries(Object.entries(global.plugins).sort(([a], [b]) => a.localeCompare(b)));
 }}}};
@@ -509,13 +507,13 @@ unlinkSync(filePath)})
 }
 function purgeSession() {
 let prekey = []
-let directorio = readdirSync("./MdmxSesion")
+let directorio = readdirSync("./GokuSesion")
 let filesFolderPreKeys = directorio.filter(file => {
 return file.startsWith('pre-key-')
 })
 prekey = [...prekey, ...filesFolderPreKeys]
 filesFolderPreKeys.forEach(files => {
-unlinkSync(`./MdmxSesion/${files}`)
+unlinkSync(`./GokuSesion/${files}`)
 })
 } 
 function purgeSessionSB() {
@@ -534,14 +532,14 @@ unlinkSync(`./MdmxDirector/${directorio}/${fileInDir}`)
 }})
 }})
 if (SBprekey.length === 0) {
-console.log(chalk.bold.green('(ACCESS): No hay archivos innecesarios disponibles en la carpeta de PreBots para eliminar.'))
+console.log(`( LIMPIO ): No hay archivos innecesarias en la carpeta de PreBots para eliminar.`)
 } else {
-console.log(chalk.bold.greenBright('(ACCESS): Se han eliminado los archivos innecesarios en la carpeta de PreBots con exito.'))
+console.log(`( LIMPIO ): Se han eliminado los archivos innecesarios en la carpeta de PreBots con exito.`)
 }} catch (err) {
-console.log(chalk.bold.red('(ERROR): Ocurrio un error inesperado al eliminar archivos innecesarios dentro de la carpera PreBots.\nTipo de error: ' + err))
+console.log(`( ERROR ): Ocurrio un error al eliminar los archivos innecesarios dentro de las carpetas de PreBots.\n--> Tipo de error: ` + err)
 }}
 function purgeOldFiles() {
-const directories = ['./MdmxSesion/', './MdmxDirector/']
+const directories = ['./GokuSesion/', './MdmxDirector/']
 directories.forEach(dir => {
 readdirSync(dir, (err, files) => {
 if (err) throw err
@@ -550,9 +548,9 @@ if (file !== 'creds.json') {
 const filePath = path.join(dir, file);
 unlinkSync(filePath, err => {
 if (err) {
-console.log(chalk.bold.red(`(ERROR): No se ha podido eliminar el archivo ${file}\nTipo de error: ` + err))
+console.log(`( ERROR ): Ocurrio un error al eliminat el archivo: ${file}\n--> Tipo de error: ` + err)
 } else {
-console.log(chalk.bold.green(`(ACCESS): Se ha eliminado el archivo ${file} exitosamente.`))
+console.log(`( LIMPIO ): Se ha eliminado el archico ${file} con exito.`)
 } }) }
 }) }) }) }
 function redefineConsoleMethod(methodName, filterStrings) {
@@ -568,22 +566,23 @@ originalConsoleMethod.apply(console, arguments)
 setInterval(async () => {
 if (stopped === 'close' || !conn || !conn.user) return
 await clearTmp()
-console.log(chalk.bold.cyanBright('(ACCESS): Se han eliminado los archivos innecesarios de la carpeta tmp con exito.'))}, 1000 * 60 * 4) // 4 min 
+//console.log(chalk.bold.cyanBright('Archivos borrados en tmp.'))}, 1000 * 60 * 4) // 4 min 
+console.log(`( SUCCESS ): Se han eliminado los archivos innecesarios de la carpeta tmp con exito.`)
 
 setInterval(async () => {
 if (stopped === 'close' || !conn || !conn.user) return
 await purgeSessionSB()
 await purgeSession()
-console.log(chalk.bold.greenBright(`(ACCESS): Se han eliminado los archivos innecesarios de la carpeta ${authFile} con exito.`))
+console.log(`( LIMPIO ): Se han eliminado los archivos innecesarios de la carpeta ${global.authFile} con exito.`)
 await purgeOldFiles()
-console.log(chalk.bold.greenBright(`(ACCESS): Archivos duplicados fueron eliminados con exito.`))}, 1000 * 60 * 10)
+console.log(`( LIMPIO ): Se han eliminado los archivos residuales con exito en MDMX.`)}, 1000 * 60 * 10)
 
-_quickTest().then(() => conn.logger.info(chalk.bold(`Cargando mensajes entrantes, espere un momento...`.trim()))).catch(console.error)
+_quickTest().then(() => conn.logger.info(chalk.bold(`( LOADING... ): Se estan cargando los paquetes y mensajes, espere un momento..`.trim()))).catch(console.error)
 
 let file = fileURLToPath(import.meta.url)
 watchFile(file, () => {
 unwatchFile(file)
-console.log(chalk.bold.greenBright(`(ACCESS): Se ha actualizado el archivo main.js con exito.`.trim()))
+console.log(`( SUCCESS ): ¡Se ha actualizado el archivo main.js con exito en MDMX!`.trim())
 import(`${file}?update=${Date.now()}`)
 })
 
@@ -591,9 +590,9 @@ async function isValidPhoneNumber(number) {
 try {
 number = number.replace(/\s+/g, '')
 if (number.startsWith('+521')) {
-number = number.replace('+521', '+52'); 
+number = number.replace('+521', '+52');
 } else if (number.startsWith('+52') && number[4] === '1') {
-number = number.replace('+52 1', '+52'); 
+number = number.replace('+52 1', '+52');
 }
 const parsedNumber = phoneUtil.parseAndKeepRawInput(number)
 return phoneUtil.isValidNumber(parsedNumber)
@@ -602,6 +601,6 @@ return false
 }}
 
 async function joinChannels(conn) {
-for (const channelId of Object.values(global.miscanales)) {
+for (const channelId of Object.values(global.ch)) {
 await conn.newsletterFollow(channelId).catch(() => {})
 }}

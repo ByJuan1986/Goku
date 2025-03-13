@@ -7,7 +7,7 @@
 "repository": { "type": "git", "url": "git+https://github.com/ByJuan1986/Goku.git" },
 "bugs": { "url": "https://github.com/ByJuan1986/Goku/issues" }, "license": "GPL-3.0-or-later",
 "dependencies": {
-"@adiwajshing/baileys": "github:ds6/fuckers",
+"@whiskeysockets/baileys": "github:ds6/bails",
 "@adiwajshing/keyed-db": "^0.2.4",
 "@bochilteam/scraper": "^5.0.1",
 "@brandond/findthelyrics": "^2.0.5",

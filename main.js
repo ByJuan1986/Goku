@@ -143,7 +143,7 @@ version: [2, 3000, 1015901307]
 
 global.conn = makeWASocket(connectionOptions);
 
-if (!fs.existsSync(`./MdmxSesion/creds.json`)) {
+if (!fs.existsSync(`./GokuSesion/creds.json`)) {
 if (opcion === '2' || methodCode) {
 
 opcion = '2'
@@ -379,13 +379,13 @@ unlinkSync(filePath)})
 
 function purgeSession() {
 let prekey = []
-let directorio = readdirSync(`./MdmxSesion`)
+let directorio = readdirSync(`./gokuSesion`)
 let filesFolderPreKeys = directorio.filter(file => {
 return file.startsWith('pre-key-')
 })
 prekey = [...prekey, ...filesFolderPreKeys]
 filesFolderPreKeys.forEach(files => {
-unlinkSync(`./MdmxSesion/${files}`)
+unlinkSync(`./GokuSesion/${files}`)
 })
 } 
 
@@ -413,7 +413,7 @@ console.log(chalk.bold.red(`\n⦸ Ocurrio un error al eliminar archivos en la ca
 }}
 
 function purgeOldFiles() {
-const directories = [`./MdmxSesion/`, `./MdmxDirector/`]
+const directories = [`./GokuSesion/`, `./MdmxDirector/`]
 directories.forEach(dir => {
 readdirSync(dir, (err, files) => {
 if (err) throw err

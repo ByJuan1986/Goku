@@ -99,13 +99,13 @@ let opcion
 if (methodCodeQR) {
 opcion = '1'
 }
-if (!methodCodeQR && !methodCode && !fs.existsSync(`./MdmxSesion/creds.json`)) {
+if (!methodCodeQR && !methodCode && !fs.existsSync(`./GokuSesion/creds.json`)) {
 do {
 opcion = await question(colores('SELECCIONE UNA OPCION PARA CONTINUAR\n') + opcionQR('1 » Escanear un codigo QR.\n') + opcionTexto('2 » Vincular con codigo de 8 digitos.\n--> '))
 
 if (!/^[1-2]$/.test(opcion)) {
 console.log(chalk.bold.redBright(`Ocurrio un error, intentalo de nuevo por favor..`))
-}} while (opcion !== '1' && opcion !== '2' || fs.existsSync(`./MdmxSesion/creds.json`))
+}} while (opcion !== '1' && opcion !== '2' || fs.existsSync(`./GokuSesion/creds.json`))
 } 
 
 const filterStrings = [
@@ -219,7 +219,7 @@ await global.reloadHandler(true).catch(console.error)
 } else if (reason === DisconnectReason.connectionReplaced) {
 console.log(chalk.bold.yellowBright(`\n( ⦸ ): Se ha reemplazado la conexion, borre la nueva sesion para evitar errores en esta sesion.`))
 } else if (reason === DisconnectReason.loggedOut) {
-console.log(chalk.bold.redBright(`\n( ⦸ ): No tienes conexion a la sesion predeterminada, borra la carpeta ( MdmxSesion ) y vuelva a intentar escanear qr o code.`))
+console.log(chalk.bold.redBright(`\n( ⦸ ): No tienes conexion a la sesion predeterminada, borra la carpeta ( GokuSesion ) y vuelva a intentar escanear qr o code.`))
 await global.reloadHandler(true).catch(console.error)
 } else if (reason === DisconnectReason.restartRequired) {
 console.log(chalk.bold.redBright(`\n( ⦸ ): Ocurrio un error, se intentara conectar al servidor.`))
@@ -379,7 +379,7 @@ unlinkSync(filePath)})
 
 function purgeSession() {
 let prekey = []
-let directorio = readdirSync(`./gokuSesion`)
+let directorio = readdirSync(`./GokuSesion`)
 let filesFolderPreKeys = directorio.filter(file => {
 return file.startsWith('pre-key-')
 })

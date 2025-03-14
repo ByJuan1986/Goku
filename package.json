@@ -18,16 +18,16 @@
 "eslint": "eslint .",
 "eslintfix": "eslint --fix ."
 },
-"homepage": "https://github.com/MBMD-OFC/MDMX",
+"homepage": "https://github.com/ByJuan1986/Goku.git",
 "author": {
 "name": "MBMD-OFC (@mdmx_mktg)"
 },
 "repository": {
 "type": "git",
-"url": "git+https://github.com/MBMD-OFC/MDMX.git"
+"url": "git+https://github.com/ByJuan1986/Goku.git"
 },
 "bugs": {
-"url": "https://github.com/MBMD-OFC/MDMX/issues"
+"url": "https://github.com/ByJuan1986/Goku.git/issues"
 },
 "license": "GPL-3.0-or-later",
 "dependencies": {
